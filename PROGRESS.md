@@ -19,3 +19,21 @@ Next: pure simulator with ASCII rule tests and byte-identical replay.
 Done: pure simulator, deterministic PRNG, all seven opcodes, atomic pushing, simultaneous conveyors, respawn, required beacons, canonical replay and preview. ASCII rule cases, replay tests and 200 preview/patch comparisons pass.
 Deviations: the explicit tick phase order takes precedence over the prose about immediate falls; instructions all resolve before falls, then conveyors and falls again. This distinction only affects multiplayer interactions. A measured 8-robot simulation without trace averages below 20 microseconds on this machine; this is a local microbenchmark, not a cross-device guarantee.
 Next: playable canvas arena, patch selector, tick animation and title navigation.
+
+## M1 · 3 — playable interface
+
+Done: responsive warehouse canvas, six-slot program editor, one pending patch, before/after forecast, tick animations, title navigation, FR/EN, Backlog/Sprint/Daily, resumable saves and postmortem are implemented together so the third delivery commit is runnable without missing imports. The tutorial was solved through browser controls in 1.6 seconds; its result showed three stars. Desktop and 390px postmortem were inspected in the in-app browser.
+Deviations: interface modules for steps 4, 6 and 7 were developed in parallel and integrated at this milestone; their acceptance checks are recorded separately below. This preserves a runnable `main` while reducing integration risk, rather than following a strict one-feature-per-commit schedule.
+Next: complete generator, series, replay, export and mobile acceptance checks.
+
+## M1 · 4 — forecast validation
+
+Done: 200 generated tickets with 200 random patches each, including intermediate crate/hole/beacon states: 40,000 complete world and event-trace comparisons match actual simulation. Input worlds remain unchanged.
+Deviations: none; preview and gameplay call the same simulator.
+Next: final procedural-generation campaign and cold generation timings.
+
+## M1 · 5 — certified tickets
+
+Done: generator v3, exact iterative-deepening search, full mutable-state memoization, seed-order-independent proof caching, incident titles and certified optimal patch sequences. 1,000 seeds per tier pass, with 4/4/5/6 arena families; maximum synchronous generation in the campaign was 850ms. Fresh-module async Node profiles with a simulated rAF took 503–1,032ms, maximum synchronous slices 9.01–11.19ms. Browser timing is checked separately.
+Deviations: candidates use constructive arena families, variable geometry and catalogued broken programs, then exact certification, rather than uniformly random arenas/programs. Corridors sometimes require more walls than the proposed 8–15 percent. This improves puzzle variety and bounds generation time. On 1,000 seeds per tier, unique initial gameplay states were 312/373/336/164; seeds can therefore share the same logical puzzle. No unproved par is served.
+Next: finish all browser acceptance checks and record release evidence.

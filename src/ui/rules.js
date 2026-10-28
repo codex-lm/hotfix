@@ -1,0 +1,4 @@
+import {OPS} from '../core/opcodes.js';
+import {t} from './i18n.js';
+import {opIcon,icon} from './dom.js';
+export function rulesHTML(){return `<div class="modal-intro"><p class="eyebrow">${t('rules')}</p><h2>${t('rulesTitle')}</h2><p>${t('rulesIntro')}</p></div><div class="rule-cycle"><span>01 → 02 → 03 → 04 → 05 → 06</span><p>${t('rulesCycle')}</p></div><div class="instruction-rules">${OPS.map(op=>`<div class="instruction-rule"><div class="rule-illustration ${op.toLowerCase()}">${opIcon(op,28)}<span class="mini-robot"></span></div><div><code>${op}</code><p>${t('op'+op)}</p></div></div>`).join('')}</div><div class="tile-rules">${['Floor','Wall','Hole','Crate','Conveyor','Beacon','Exit'].map(name=>`<p><span class="tile-swatch ${name.toLowerCase()}"></span>${t('rule'+name)}</p>`).join('')}</div><div class="rule-notes"><p>${icon('star',20)}${t('rulesStars')}</p><p>${icon('loop',20)}${t('rulesPreview')}</p></div>`;}

@@ -1,0 +1,4 @@
+import {t} from './i18n.js';
+import {escapeHTML as e,icon} from './dom.js';
+export function logText(entries){return entries.map(entry=>entry.kind==='patch'?`v${entry.version} · fix(slot ${entry.slot+1}): ${entry.from} → ${entry.to}`:t('logCycle',entry)).join('\n');}
+export function logHTML(entries){return `<details class="commit-log" ${entries.length?'open':''}><summary><span>${icon('code',18)}${t('log')}</span><span class="log-count">${String(entries.filter(v=>v.kind==='patch').length).padStart(2,'0')}</span></summary><div class="log-lines">${entries.length?entries.slice(-10).map(entry=>`<p class="${entry.kind==='patch'?'commit':'cycle-summary'}"><span class="log-mark">${entry.kind==='patch'?'●':'↳'}</span>${e(logText([entry]))}</p>`).join(''):`<p class="empty-log">${t('noCommits')}</p>`}</div></details>`;}

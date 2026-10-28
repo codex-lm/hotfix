@@ -11,7 +11,8 @@ for (const filename of files) {
   const before = performance.now();
   try {
     const suite = await import(new URL(filename, directory));
-    if (typeof suite.default === 'function') await suite.default();
+    if (typeof suite.default !== 'function') throw new TypeError(`${filename} must export its assertion suite`);
+    await suite.default();
     console.log(`PASS ${filename} (${Math.round(performance.now() - before)} ms)`);
   } catch (error) {
     failed++;

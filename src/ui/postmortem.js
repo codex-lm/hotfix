@@ -1,0 +1,31 @@
+import {t,ticketTitle} from './i18n.js';
+import {escapeHTML as e,icon,starsHTML} from './dom.js';
+import {drawArena} from './arena.js';
+
+export function solutionHTML(ticket){let program=[...ticket.program];return `<ol class="solution-list">${ticket.solution.map((patch,i)=>{const text=patch?t('optimalPatch',{n:i+1,slot:patch.slot+1,from:program[patch.slot],to:patch.op}):t('optimalSkip',{n:i+1});if(patch)program[patch.slot]=patch.op;return `<li><code>${e(text)}</code></li>`;}).join('')}</ol>`;}
+export function postmortemHTML(session,{seriesDone=false}={}){
+  const{ticket,result,run}=session;const series=run.kind!=='backlog',sum=run.results.reduce((s,r)=>s+r.stars,0);
+  return `<main class="postmortem-page"><section class="result-sheet"><div class="result-topline"><span class="eyebrow">${e(ticket.id)} / ${t('tier'+ticket.tier)}</span><span class="result-stamp ${result.stars?'success':'failure'}">${t(result.stars?'resolved':'escalated')}</span></div>
+    <div class="result-heading"><div><p class="eyebrow">${seriesDone?t(run.kind==='daily'?'dailyResult':'sprintResult'):t('ticket')}</p><h1>${seriesDone?t('seriesDone'):t(result.stars?'resultWin':'resultLoss')}</h1><p>${e(ticketTitle(ticket))}</p></div><div class="result-stars">${seriesDone?`<strong>${sum}<small> / ${run.tiers.length*3}</small></strong>`:starsHTML(result.stars)}<span>${seriesDone?t('score'):t(result.stars?'resultWinSub':'resultLossSub')}</span></div></div>
+    ${run.practice?`<p class="practice-note">${t('practice')}</p>`:''}
+    <div class="result-stats"><div><span>${t('patches')}</span><strong>${result.patches}<small> / ${ticket.par}</small></strong></div><div><span>${t('cycle')}</span><strong>${result.cycles}<small> / ${ticket.cycles}</small></strong></div><div><span>${t('falls')}</span><strong>${result.falls}</strong></div><div><span>${t('time')}</span><strong>${formatTime(result.elapsed)}</strong></div></div>
+    ${seriesDone?`<div class="series-results">${run.results.map((r,i)=>`<div><span>${String(i+1).padStart(2,'0')} · ${t('tier'+r.tier)}</span>${starsHTML(r.stars)}</div>`).join('')}</div>`:''}
+    <div class="result-actions"><button class="button primary" data-action="next">${series&&!seriesDone?t('series',{n:run.index+2,total:run.tiers.length}):t('nextTicket')}${icon('arrow',20)}</button><button class="button outline" data-action="replay-ticket" ${series&&!seriesDone?'disabled':''}>${icon('loop',18)}${t('replayTicket')}</button><button class="text-button" data-action="home">${t('changeTier')}</button></div>
+  </section><section class="postmortem-detail"><div class="replay-panel"><div class="panel-topline"><h2>${t('replay')}</h2><span class="mono">${t('tick',{n:0})}</span></div><canvas id="replay-arena" aria-label="${t('replay')}"></canvas><div class="replay-controls"><button class="icon-button" data-action="prev-tick" aria-label="${t('prevTick')}">←</button><button class="button small outline" data-action="play-replay">${icon('play',17)}${t('playReplay')}</button><button class="icon-button" data-action="next-tick" aria-label="${t('nextTick')}">→</button><input type="range" id="replay-range" min="0" max="${session.frames.length}" value="0" aria-label="${t('replay')}"></div><div id="replay-program" class="replay-program"></div></div>
+  <div class="solution-panel"><p class="eyebrow">${t('optimal')}</p><h2>${t('titleRuleB')}</h2>${!series||seriesDone?`<p>${t('optimalDesc')}</p>${solutionHTML(ticket)}`:`<p>${t('optimalHold')}</p>`}<div class="export-tools"><button data-action="copy-log">${icon('code',16)}${t('copyLog')}</button><button data-action="copy-seed">${icon('copy',16)}${t('copySeed')}</button><button data-action="download-card" ${series&&!seriesDone?'disabled':''}>${icon('download',16)}${t('downloadCard')}</button><button data-action="copy-card" ${series&&!seriesDone?'disabled':''}>${icon('copy',16)}${t('copyCard')}</button></div><p class="result-seed"><span>${t('seed')}</span><code>${e(series?run.seed:ticket.seed)}</code></p></div></section></main>`;
+}
+export function formatTime(ms){const sec=Math.floor(ms/1000);return `${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`;}
+export function makePostmortemCard(session){
+  const canvas=document.createElement('canvas');canvas.width=1200;canvas.height=630;const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#E4E2DC';ctx.fillRect(0,0,1200,630);ctx.fillStyle='#23272E';ctx.fillRect(0,0,1200,13);
+  ctx.fillStyle='#1B1D21';ctx.font='800 56px Barlow,sans-serif';ctx.fillText('hotfix',46,83);ctx.font='500 16px "JetBrains Mono",monospace';ctx.fillText(session.ticket.id,47,120);
+  ctx.fillStyle=session.result.stars?'#3C9D5D':'#D63A2F';ctx.font='800 44px Barlow,sans-serif';ctx.fillText(t(session.result.stars?'resolved':'escalated'),46,203);
+  ctx.fillStyle='#23272E';ctx.font='700 28px Barlow,sans-serif';wrapText(ctx,ticketTitle(session.ticket),46,251,455,35);
+  const series=session.run.kind!=='backlog',score=series?session.run.results.reduce((s,r)=>s+r.stars,0):session.result.stars,max=series?session.run.tiers.length*3:3;
+  ctx.font='500 21px "JetBrains Mono",monospace';ctx.fillText(`${score} / ${max} ★`,46,367);ctx.font='400 18px Barlow,sans-serif';ctx.fillText(series?t(session.run.kind==='daily'?'dailyResult':'sprintResult'):t('patchCount',{used:session.result.patches,par:session.ticket.par}),46,409);ctx.fillText(session.run.practice?t('practice'):t('cyclesCount',{used:session.result.cycles,max:session.ticket.cycles}),46,440,470);
+  const small=document.createElement('canvas');drawArena(small,session.world,{width:620,height:450,dpr:1,compact:true,patchTrace:session.frames.slice(-6)});ctx.drawImage(small,540,70,620,450);
+  ctx.fillStyle='#23272E';ctx.font='500 15px "JetBrains Mono",monospace';ctx.fillText(`${t('seed')}: ${series?session.run.seed:session.ticket.seed}`.slice(0,100),46,567);ctx.fillText(new Date().toISOString().slice(0,10),1033,583);
+  ctx.fillStyle='#F2652B';for(let x=-30;x<1200;x+=34){ctx.beginPath();ctx.moveTo(x,614);ctx.lineTo(x+18,614);ctx.lineTo(x+34,630);ctx.lineTo(x+16,630);ctx.fill();}
+  return canvas;
+}
+function wrapText(ctx,text,x,y,width,lineHeight){let line='',lines=0;for(const word of text.split(' ')){if(ctx.measureText(line+word).width>width&&line){ctx.fillText(line,x,y);y+=lineHeight;line='';if(++lines===2)break;}line+=word+' ';}ctx.fillText(line,x,y);}
