@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "key": "move",
+      "service": "ElevenLabs Sound Effects",
+      "modelObserved": "v3",
+      "generatedOn": "2026-10-28",
+      "sourcePage": "https://elevenlabs.io/app/sound-effects/history?id=HGwI723N3HDOE5pi2VXs",
+      "originalFilename": "HOTFIX_robot_movemen_#1-1793226074307.wav",
+      "originalSHA256": "a23e63432168758c667b16480edcd83b723b6bc314805db90b26da5a3da6e737",
+      "planObserved": "Starter",
+      "generationEvidence": "Plan, prompt, history URL and variant count observed in the root browser UI session; downloaded WAV independently hash-verified during conversion.",
+      "prompt": "HOTFIX robot movement: one tiny friendly warehouse cart rolls exactly one tile on smooth concrete, a soft rubber wheel roll with a muted servo whirr and a gentle stop. Single isolated one-shot, 0.35 seconds, dry and tactile, low volume, no voice, no music, no ambient background, no alarm, no repetition.",
+      "selection": {
+        "variantsShown": 4,
+        "selectedVariant": 1,
+        "method": "First displayed variant, deterministic selection; no listening comparison claimed."
+      },
+      "derivedFiles": [
+        "sfx/move.ogg",
+        "sfx/move.m4a"
+      ],
+      "conversionAudit": "sfx/move.audit.json",
+      "rights": {
+        "classification": "Service-specific media terms; not MIT or CC0",
+        "reviewedOn": "2026-10-28",
+        "terms": [
+          "https://elevenlabs.io/creative-terms",
+          "https://elevenlabs.io/terms-of-use",
+          "https://elevenlabs.io/use-policy"
+        ],
+        "note": "Use only as incorporated game media subject to the applicable ElevenLabs agreement and plan. No standalone sound-library or isolated-file redistribution license is granted here."
+      },
+      "qualityChecks": {
+        "decodeAndFormatVerified": true,
+        "musicalOrListeningReview": false
+      },
+      "durationSeconds": 0.371633,
+      "normalizationNote": "Cue is too short for finite EBU R128 integrated loudness; normalized to -8 dBTP instead. The -20 LUFS target is unverified."
+    },
+    {
+      "key": "patch-select",
+      "service": "ElevenLabs Sound Effects",
+      "modelObserved": "v3",
+      "generatedOn": "2026-10-28",
+      "sourcePage": "https://elevenlabs.io/app/sound-effects/history?id=57l9vp5ROz4qF0gTgC40",
+      "originalFilename": "HOTFIX_patch_selecti_#1-1793226264260.wav",
+      "originalSHA256": "985d515bad0e42c904305c4f5a5351b30798deb0a1d01dbd35e450ac81517785",
+      "planObserved": "Starter",
+      "generationEvidence": "Plan, prompt, history URL and variant count observed in the root browser UI session; downloaded WAV independently hash-verified during conversion.",
+      "prompt": "HOTFIX patch selection: one small tactile switch on a friendly warehouse robot control panel, a tiny dry plastic click followed by a warm muted digital plink. Single isolated one-shot, 0.2 seconds, restrained and pleasant, clean short tail. No voices, music, ambience, echo, alarm, harsh treble, or repetition.",
+      "selection": {
+        "variantsShown": 4,
+        "selectedVariant": 1,
+        "method": "First displayed variant, deterministic selection; no listening comparison claimed."
+      },
+      "derivedFiles": [
+        "sfx/patch-select.ogg",
+        "sfx/patch-select.m4a"
+      ],
+      "conversionAudit": "sfx/patch-select.audit.json",
+      "rights": {
+        "classification": "Service-specific media terms; not MIT or CC0",
+        "reviewedOn": "2026-10-28",
+        "terms": [
+          "https://elevenlabs.io/creative-terms",
+          "https://elevenlabs.io/terms-of-use",
+          "https://elevenlabs.io/use-policy"
+        ],
+        "note": "Use only as incorporated game media subject to the applicable ElevenLabs agreement and plan. No standalone sound-library or isolated-file redistribution license is granted here."
+      },
+      "qualityChecks": {
+        "decodeAndFormatVerified": true,
+        "musicalOrListeningReview": false
+      },
+      "durationSeconds": 0.20263,
+      "normalizationNote": "Cue is too short for finite EBU R128 integrated loudness; normalized to -8 dBTP instead. The -20 LUFS target is unverified."
+    },
+    {
+      "key": "deploy",
+      "service": "ElevenLabs Sound Effects",
+      "modelObserved": "v3",
+      "generatedOn": "2026-10-28",
+      "sourcePage": "https://elevenlabs.io/app/sound-effects/history?id=7kV7STaR841nMPJzeV8k",
+      "originalFilename": "HOTFIX_deploy_patch__#1-1793226324903.wav",
+      "originalSHA256": "4e587e27457a6dd6483e1c8ab1af56ee9b4fb4ce226417f7a0fd2bcc9a6f9fce",
+      "planObserved": "Starter",
+      "generationEvidence": "Plan, prompt, history URL and displayed 0.6-second variant duration observed in the root browser UI session; downloaded WAV independently hash-verified during conversion.",
+      "prompt": "HOTFIX deploy patch: a short deliberate mechanical toggle clicks into place, then two warm clean electronic confirmation tones rise a small interval. Friendly industrial control panel, satisfying but restrained. One isolated cue, 0.65 seconds, dry close detail, clean tail. No voice, music, background hum, explosion, alarm, sharp treble, or repetition.",
+      "selection": {
+        "selectedVariant": 1,
+        "method": "First displayed variant, deterministic selection; no listening comparison claimed."
+      },
+      "derivedFiles": [
+        "sfx/deploy.ogg",
+        "sfx/deploy.m4a"
+      ],
+      "conversionAudit": "sfx/deploy.audit.json",
+      "rights": {
+        "classification": "Service-specific media terms; not MIT or CC0",
+        "reviewedOn": "2026-10-28",
+        "terms": [
+          "https://elevenlabs.io/creative-terms",
+          "https://elevenlabs.io/terms-of-use",
+          "https://elevenlabs.io/use-policy"
+        ],
+        "note": "Use only as incorporated game media subject to the applicable ElevenLabs agreement and plan. No standalone sound-library or isolated-file redistribution license is granted here."
+      },
+      "qualityChecks": {
+        "decodeAndFormatVerified": true,
+        "musicalOrListeningReview": false
+      },
+      "durationSeconds": 0.389252,
+      "normalizationNote": "Cue is too short for finite EBU R128 integrated loudness; normalized to -8 dBTP instead. The -20 LUFS target is unverified."
+    },
+    {
+      "key": "victory",
+      "service": "ElevenLabs Sound Effects",
+      "modelObserved": "v3",
+      "generatedOn": "2026-10-28",
+      "sourcePage": "https://elevenlabs.io/app/sound-effects/history?id=Jqba3Fsx3fjBSpCCAipG",
+      "originalFilename": "HOTFIX_ticket_resolv_#1-1793226505279.wav",
+      "originalSHA256": "084024c32c34f74bc3de602ca82e3a1f66ca068e3252e6e032020c1dbee37b7b",
+      "planObserved": "Starter",
+      "generationEvidence": "Plan, prompt, history URL and variant count observed in the root browser UI session; downloaded WAV independently hash-verified during conversion.",
+      "prompt": "HOTFIX ticket resolved: one cheerful but understated three-note electronic confirmation, warm rounded mallet-like tones rising into a gentle final chord, with a tiny mechanical relay click. Friendly warehouse puzzle game, one isolated victory cue, 1.2 seconds, soft dry clean tail. No voice, speech, music track, fanfare, cheering, harsh treble, ambience or repetition.",
+      "selection": {
+        "variantsShown": 4,
+        "selectedVariant": 1,
+        "method": "First displayed variant, deterministic selection; no listening comparison claimed."
+      },
+      "derivedFiles": [
+        "sfx/victory.ogg",
+        "sfx/victory.m4a"
+      ],
+      "conversionAudit": "sfx/victory.audit.json",
+      "rights": {
+        "classification": "Service-specific media terms; not MIT or CC0",
+        "reviewedOn": "2026-10-28",
+        "terms": [
+          "https://elevenlabs.io/creative-terms",
+          "https://elevenlabs.io/terms-of-use",
+          "https://elevenlabs.io/use-policy"
+        ],
+        "note": "Use only as incorporated game media subject to the applicable ElevenLabs agreement and plan. No standalone sound-library or isolated-file redistribution license is granted here."
+      },
+      "qualityChecks": {
+        "decodeAndFormatVerified": true,
+        "musicalOrListeningReview": false
+      },
+      "durationSeconds": 0.852698,
+      "normalizationNote": "Two-pass EBU R128 normalization to -20 LUFS; final Vorbis -19.98 LUFS/-3.68 dBTP and AAC -20.03 LUFS/-3.80 dBTP."
+    },
+    {
+      "key": "title",
+      "service": "Suno",
+      "modelObserved": "v6-mini",
+      "generatedOn": "2026-10-28",
+      "sourcePage": "https://suno.com/song/e570e8a5-ac7f-4158-9986-c3e9669e2c99",
+      "originalFilename": "Hotfix - Night Shift.mp3",
+      "originalSHA256": "47e933dbf7e95f4cf9c7f31827d3aaf2f5e02c34ec1a0e8f9921d057d63046d5",
+      "planObserved": "Premier",
+      "generationEvidence": "Premier plan, v6-mini model, generation and permitted official clip download observed in the root browser UI session; downloaded MP3 independently hash-verified during conversion. WAV was not present in Downloads at conversion time.",
+      "prompt": "HOTFIX / Night shift. Instrumental main-menu music for a bright friendly warehouse programming puzzle. 88 BPM, warm muted electric piano, gently plucked analog keys, round soft bass, tiny dry mechanical percussion, intimate clean production. Curious, quietly witty, focused, calm late-night workbench mood. A subtle memorable four-note motif, sparse arrangement, room for interface sounds. About 75 seconds, seamless repeating groove with a gentle opening and clean loop point. No vocals, no speech, no singing, no epic build, no loud drums, no harsh treble, no industrial noise, no lo-fi crackle. Original composition.",
+      "selection": {
+        "takesCreated": 2,
+        "selectedTake": 2,
+        "method": "Selected by displayed duration, closer to requested title length; no listening comparison claimed."
+      },
+      "officialDownloadObserved": true,
+      "derivedFiles": [
+        "music/title.ogg",
+        "music/title.m4a"
+      ],
+      "conversionAudit": "music/title.audit.json",
+      "rights": {
+        "classification": "Suno service terms for a paid permitted download; not MIT or CC0",
+        "reviewedOn": "2026-10-28",
+        "terms": [
+          "https://suno.com/terms",
+          "https://help.suno.com/en/articles/9601665",
+          "https://help.suno.com/en/articles/2416769"
+        ],
+        "note": "Premier generation and official download observed. Commercial use is subject to Suno terms; copyright protection is not guaranteed. No separate freely reusable media license is granted here."
+      },
+      "qualityChecks": {
+        "decodeAndFormatVerified": true,
+        "musicalOrListeningReview": false,
+        "loopPreparation": "A 0.35-second tail/head crossfade was applied. Musical seam quality still requires listening."
+      },
+      "durationSeconds": 75.0,
+      "normalizationNote": "Two-pass EBU R128 normalization to -22 LUFS; final Vorbis -22.00 LUFS/-8.60 dBTP and AAC -22.02 LUFS/-8.58 dBTP."
+    },
+    {
+      "key": "gameplay",
+      "service": "Suno",
+      "modelObserved": "v6-mini",
+      "generatedOn": "2026-10-28",
+      "sourcePage": "https://suno.com/song/2ab38d5e-c573-4259-a36b-532defe7bd15",
+      "originalFilename": "Hotfix - Maintenance Window.mp3",
+      "originalSHA256": "4e24dd81e0db8fcbfbce344ff4511746173a6a99960f69768339d0d7c0faa336",
+      "planObserved": "Premier",
+      "generationEvidence": "Premier plan, v6-mini model, generation and permitted official MP3 clip download observed in the root browser UI session; downloaded MP3 independently hash-verified during conversion. No WAV was requested for this take.",
+      "prompt": "HOTFIX / Maintenance window. Instrumental background loop for a bright warehouse robot programming puzzle. 96 BPM, rounded soft electric bass, dry brushed micro-percussion, gentle marimba and plucked analog synth, a few warm electric-piano chords, clean modern intimate production. Calm concentration, playful engineering, tactile and friendly. Stable sparse repeating groove for two minutes, no long intro or dramatic ending, seamless loop point, plenty of space for short game cues. No vocals or speech, no epic build, no loud drums, no harsh high frequencies, no sirens, no ambient factory noise. Original composition.",
+      "selection": {
+        "takesCreated": 2,
+        "selectedTake": 1,
+        "method": "Selected by displayed duration, closer to requested two-minute loop; no listening comparison claimed."
+      },
+      "officialDownloadObserved": true,
+      "derivedFiles": [
+        "music/gameplay.ogg",
+        "music/gameplay.m4a"
+      ],
+      "conversionAudit": "music/gameplay.audit.json",
+      "rights": {
+        "classification": "Suno service terms for a paid permitted download; not MIT or CC0",
+        "reviewedOn": "2026-10-28",
+        "terms": [
+          "https://suno.com/terms",
+          "https://help.suno.com/en/articles/9601665",
+          "https://help.suno.com/en/articles/2416769"
+        ],
+        "note": "Premier generation and official download observed. Commercial use is subject to Suno terms; copyright protection is not guaranteed. No separate freely reusable media license is granted here."
+      },
+      "qualityChecks": {
+        "decodeAndFormatVerified": true,
+        "musicalOrListeningReview": false,
+        "loopPreparation": "A 0.35-second tail/head crossfade was applied. Musical seam quality still requires listening."
+      },
+      "durationSeconds": 120.0,
+      "normalizationNote": "Two-pass EBU R128 normalization to -22 LUFS; final Vorbis -21.99 LUFS/-7.82 dBTP and AAC -22.01 LUFS/-8.08 dBTP."
+    }
+  ]
+}

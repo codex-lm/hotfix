@@ -1,9 +1,10 @@
 # Hotfix — asset delivery brief
 
-Status: production brief only. No generated image, music or sound has been
-delivered. Current artwork is drawn in code; audio substitutes are silent.
-All assets are optional. The game must stay readable and fully playable when
-`assets/manifest.json` has empty image and audio maps.
+This document describes requested production assets. Actual received files
+and their provenance are recorded in `ASSETS-LICENSE.md` and
+`assets/audio/provenance.json`; `assets/manifest.json` lists only files present.
+Current artwork is drawn in code. All assets are optional: missing audio cues
+are silent, and the game remains playable with empty image and audio maps.
 
 ## 1. Blender renders — Kimi K3.1
 

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "convertedAtUTC": "2026-10-28T22:38:27.013930+00:00",
+  "source": {
+    "file": "suno-maintenance-window-2ab38d5e.mp3",
+    "sha256": "4e24dd81e0db8fcbfbce344ff4511746173a6a99960f69768339d0d7c0faa336",
+    "codec": "mp3",
+    "sampleRate": 48000,
+    "channels": 2,
+    "durationSeconds": 153.2,
+    "bytes": 3632851,
+    "service": "Suno",
+    "url": "https://suno.com/song/2ab38d5e-c573-4259-a36b-532defe7bd15",
+    "model": "v6-mini",
+    "plan": "Premier",
+    "rightsNote": "Premier plan, generation and an official permitted MP3 clip download observed in the root UI session. Commercial use is subject to Suno terms. No MIT or CC0 media license or guaranteed copyright protection is claimed."
+  },
+  "ffmpegVersion": "ffmpeg version 9.0-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+  "processing": {
+    "kind": "music",
+    "startSeconds": 0,
+    "requestedDurationSeconds": 120.35,
+    "trimSilence": false,
+    "loopCrossfadeSeconds": 0.35,
+    "loopDurationSeconds": 120.0,
+    "normalizationMode": "ebu-r128-two-pass",
+    "targetIntegratedLUFS": -22,
+    "maximumTruePeakDbTP": -2,
+    "encoderHeadroomTargetDbTP": -2.3,
+    "sampleRate": 44100,
+    "channels": 2
+  },
+  "publishedProvenanceComment": "Hotfix game audio; service=Suno; model=v6-mini; plan=Premier; source=https://suno.com/song/2ab38d5e-c573-4259-a36b-532defe7bd15",
+  "outputs": [
+    {
+      "file": "gameplay.ogg",
+      "sha256": "a7bc24725a3baf2610ce6724423c600974bc9531a7f71bc75bc226cd68ae9529",
+      "codec": "vorbis",
+      "sampleRate": 44100,
+      "channels": 2,
+      "durationSeconds": 120.0,
+      "bytes": 1617425,
+      "integratedLUFS": -21.99,
+      "truePeakDbTP": -7.82,
+      "loudnessRangeLU": 3.0,
+      "postEncodingGainDb": 0.0
+    },
+    {
+      "file": "gameplay.m4a",
+      "sha256": "a221cf132b21058db38adf140ee5d64ce311147f814e14753ed62ad748685248",
+      "codec": "aac",
+      "sampleRate": 44100,
+      "channels": 2,
+      "durationSeconds": 120.0,
+      "bytes": 1972075,
+      "integratedLUFS": -22.01,
+      "truePeakDbTP": -8.08,
+      "loudnessRangeLU": 3.0,
+      "postEncodingGainDb": 0.0
+    }
+  ],
+  "warnings": [
+    "Tail/head crossfade is technically continuous; musical loop quality still requires listening."
+  ]
+}

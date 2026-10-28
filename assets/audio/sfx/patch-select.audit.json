@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "convertedAtUTC": "2026-10-28T22:26:07.687753+00:00",
+  "source": {
+    "file": "elevenlabs-patch-select-v3-first.wav",
+    "sha256": "985d515bad0e42c904305c4f5a5351b30798deb0a1d01dbd35e450ac81517785",
+    "codec": "pcm_s16le",
+    "sampleRate": 48000,
+    "channels": 2,
+    "durationSeconds": 0.4865,
+    "bytes": 93486,
+    "service": "ElevenLabs",
+    "url": "https://elevenlabs.io/app/sound-effects/history?id=57l9vp5ROz4qF0gTgC40",
+    "model": "v3",
+    "plan": "Starter",
+    "rightsNote": "Starter plan observed during generation in the root UI session. Incorporation in Hotfix is subject to ElevenLabs terms, including Sound Effects restrictions on isolated files and sample libraries. No MIT or CC0 media license is claimed."
+  },
+  "ffmpegVersion": "ffmpeg version 9.0-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+  "processing": {
+    "kind": "cue",
+    "startSeconds": 0,
+    "requestedDurationSeconds": null,
+    "trimSilence": true,
+    "loopCrossfadeSeconds": 0,
+    "loopDurationSeconds": 0.20263,
+    "normalizationMode": "peak-fallback-short-cue",
+    "targetIntegratedLUFS": -20,
+    "maximumTruePeakDbTP": -2,
+    "encoderHeadroomTargetDbTP": -2.3,
+    "sampleRate": 44100,
+    "channels": 1
+  },
+  "outputs": [
+    {
+      "file": "patch-select.ogg",
+      "sha256": "e74964472e37eac4c3d44e36d4b296c15bc0ebd923c60dc2dcdef45461f432c7",
+      "codec": "vorbis",
+      "sampleRate": 44100,
+      "channels": 1,
+      "durationSeconds": 0.20263,
+      "bytes": 8409,
+      "integratedLUFS": null,
+      "truePeakDbTP": -7.91,
+      "loudnessRangeLU": 0.0,
+      "postEncodingGainDb": 0.0
+    },
+    {
+      "file": "patch-select.m4a",
+      "sha256": "61c1ea8011dadd397ec60818e6b2fa816c8eb97adb638b2da6ba078bb0939fb4",
+      "codec": "aac",
+      "sampleRate": 44100,
+      "channels": 1,
+      "durationSeconds": 0.20263,
+      "bytes": 5092,
+      "integratedLUFS": null,
+      "truePeakDbTP": -8.18,
+      "loudnessRangeLU": 0.0,
+      "postEncodingGainDb": 0.0
+    }
+  ],
+  "warnings": [
+    "Cue is too short for finite EBU R128 integrated loudness; normalized to -8 dBTP instead. The -20 LUFS target is unverified."
+  ]
+}

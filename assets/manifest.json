@@ -2,7 +2,33 @@
   "schemaVersion": 1,
   "images": {},
   "audio": {
-    "music": {},
-    "sfx": {}
+    "music": {
+      "title": [
+        "audio/music/title.ogg",
+        "audio/music/title.m4a"
+      ],
+      "gameplay": [
+        "audio/music/gameplay.ogg",
+        "audio/music/gameplay.m4a"
+      ]
+    },
+    "sfx": {
+      "move": [
+        "audio/sfx/move.ogg",
+        "audio/sfx/move.m4a"
+      ],
+      "patch-select": [
+        "audio/sfx/patch-select.ogg",
+        "audio/sfx/patch-select.m4a"
+      ],
+      "deploy": [
+        "audio/sfx/deploy.ogg",
+        "audio/sfx/deploy.m4a"
+      ],
+      "victory": [
+        "audio/sfx/victory.ogg",
+        "audio/sfx/victory.m4a"
+      ]
+    }
   }
 }

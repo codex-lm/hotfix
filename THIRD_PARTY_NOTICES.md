@@ -31,4 +31,6 @@ is made to Google or any other external host by the running game.
   that bundling instruction. It is not relicensed under Hotfix's MIT license.
 - Exact SHA-256: see `assets/sdk-provenance.json`.
 
-There are no npm dependencies, remote scripts or other third-party media.
+There are no npm dependencies or remote scripts. Optional recordings generated
+with ElevenLabs and Suno are documented separately in `ASSETS-LICENSE.md` and
+`assets/audio/provenance.json`; they are excluded from the code's MIT license.
