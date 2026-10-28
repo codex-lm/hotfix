@@ -143,7 +143,7 @@ function drawPath(ctx,world,trace,s,ox,oy,color,active=false,robotId=world.robot
       const edge=s/2-height/2-1;
       const y=cy+Math.max(-edge,Math.min(edge,(active?-1:1)*s*.26));
       rect(ctx,cx-width/2,y-height/2,width,height,active?color:'#8f9594',3);
-      ctx.fillStyle='#fff';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,cx,y+.25,Math.max(1,width-4));
+      ctx.fillStyle='#1B1D21';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,cx,y+.25,Math.max(1,width-4));
       if(group.turned){ctx.strokeStyle=color;ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(cx-s*.33,cy,Math.min(3,s*.09),-Math.PI*.9,.15);ctx.stroke();}
       if(group.pushed){ctx.fillStyle=color;ctx.fillRect(cx+s*.29,cy-2,Math.min(3,s*.10),4);}
       ctx.restore();
@@ -156,7 +156,7 @@ function drawPath(ctx,world,trace,s,ox,oy,color,active=false,robotId=world.robot
     const key=`${robot.x},${robot.y}`,count=occurrences.get(key)||0;occurrences.set(key,count+1);
     let [x,y]=point(robot);x+=(count%3-1)*14;y+=active?-s*.25-Math.floor(count/3)*14:s*.24+Math.floor(count/3)*14;
     ctx.fillStyle=active?color:'#a6a7a2';ctx.beginPath();ctx.arc(x,y,8,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle=active?'#fff':'#fff';ctx.font='600 10px "JetBrains Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(index%6+1),x,y+.5);
+    ctx.fillStyle='#1B1D21';ctx.font='600 10px "JetBrains Mono",monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(index%6+1),x,y+.5);
     if(frame.events.some(e=>e.type==='turned'&&e.robotId===robotId)){ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(x,y,11,-Math.PI*.9,0);ctx.stroke();}
     if(frame.events.some(e=>e.type==='pushed'&&e.by===robotId)){ctx.fillStyle=color;ctx.fillRect(x+9,y+5,4,5);}
   });ctx.restore();
