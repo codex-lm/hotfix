@@ -1,5 +1,5 @@
 const KEY='hotfix.v1';
-const defaults=()=>{const mobile=typeof matchMedia==='function'&&matchMedia('(pointer: coarse)').matches;return{schemaVersion:1,progress:{best:{},stars:[0,0,0,0],tickets:0},session:null,sprint:null,daily:null,settings:{lang:null,speed:1,reduceMotion:false,music:mobile?0:0.18,sfx:mobile?0:0.45}};};
+const defaults=()=>{const mobile=typeof matchMedia==='function'&&matchMedia('(pointer: coarse)').matches;return{schemaVersion:1,progress:{best:{},stars:[0,0,0,0],tickets:0},prod:{games:{intern:0,ops:0,senior:0},wins:{intern:0,ops:0,senior:0}},session:null,sprint:null,daily:null,settings:{lang:null,speed:1,reduceMotion:false,music:mobile?0:0.18,sfx:mobile?0:0.45}};};
 export function validateSave(value){
   if(!value||typeof value!=='object'||Array.isArray(value)||value.schemaVersion!==1)throw new Error('Invalid save version');
   const clean=defaults();
@@ -8,6 +8,11 @@ export function validateSave(value){
   }
   for(const item of Object.values(clean.progress.best))clean.progress.stars[item.tier-1]+=item.stars;
   clean.progress.tickets=Object.values(clean.progress.best).filter(item=>item.stars>0).length;
+  for(const level of ['intern','ops','senior']){
+    const count=value.prod?.games?.[level],wins=value.prod?.wins?.[level];
+    clean.prod.games[level]=Number.isSafeInteger(count)?Math.max(0,Math.min(1000000,count)):0;
+    clean.prod.wins[level]=Number.isSafeInteger(wins)?Math.max(0,Math.min(clean.prod.games[level],wins)):0;
+  }
   const settings=value.settings||{};
   clean.settings={lang:['fr','en'].includes(settings.lang)?settings.lang:null,speed:[1,2,4].includes(settings.speed)?settings.speed:1,reduceMotion:settings.reduceMotion===true,music:Math.max(0,Math.min(1,Number(settings.music??clean.settings.music)||0)),sfx:Math.max(0,Math.min(1,Number(settings.sfx??clean.settings.sfx)||0))};
   if(value.daily&&/^daily-\d{4}-\d{2}-\d{2}$/.test(value.daily.seed)&&Array.isArray(value.daily.results)&&value.daily.results.length<=5){

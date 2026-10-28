@@ -14,6 +14,7 @@ import {postmortemHTML,makePostmortemCard} from './ui/postmortem.js';
 import {readSave,writeSave,validateSave,recordBest,checkpoint} from './ui/storage.js';
 import {loadAssets} from './ui/assets.js';
 import {createAudio} from './ui/audio.js';
+import {createProdUI} from './ui/prod.js';
 
 const app=document.querySelector('#app');
 let save=readSave(),screen='title',session=null,tier=1,selected=0,pending=null,hoverPatch=null,busy=false,activeTick=-1,replayIndex=0,replayTimer=null,loadToken=0,lastSlot=-1;
@@ -24,6 +25,7 @@ setLanguage(getLanguage());audio.setVolumes(save.settings.music,save.settings.sf
 const reduced=()=>save.settings.reduceMotion;
 let baseForecast=null,patchForecast=null,forecastKey='';
 let warmingDaily=false;
+let prodUI=null;
 function warmDaily(){if(warmingDaily||screen!=='title')return;warmingDaily=true;dailyTickets(new Date(),{onProgress(){if(screen!=='title')throw new Error('Background triage paused');}}).catch(()=>{}).finally(()=>{warmingDaily=false;});}
 
 function header(){return `<header class="site-header"><button class="brand" data-action="home" aria-label="Hotfix · ${t('home')}"><span class="brand-icon">${icon('code',23)}</span><span>hotfix<span class="brand-period">.</span></span></button><span class="brand-tagline">${t('tagline')}</span><nav><span class="system-status"><i></i>${t('live')}</span><button class="header-link" data-action="rules">${t('rules')}</button><button class="icon-button" data-action="settings" aria-label="${t('settings')}">${icon('settings',20)}</button><button class="language-button" data-action="language" aria-label="${t('language')}">${getLanguage().toUpperCase()}<span>↔</span></button></nav></header>`;}
@@ -34,6 +36,12 @@ function render(){
     const today=dailySeed();
     app.innerHTML=header()+titleHTML({tier,totalStars:save.progress.stars.reduce((a,b)=>a+b,0),resume:!!save.session,date:today.replace('daily-',''),dailyScore:save.daily?.seed===today&&save.daily.complete?save.daily.results.reduce((s,r)=>s+r.stars,0):null})+footer();drawTitle();warmDaily();
   }else if(screen==='play')renderPlay();
+  else if(screen==='prod'){
+    app.innerHTML=header()+'<div id="prod-container"></div>'+footer();
+    const container=document.querySelector('#prod-container');
+    if(prodUI)prodUI.mount(container);
+    else prodUI=createProdUI(container,{onHome:home,onSettings:settings,settings:save.settings,audio,onProgress:prodProgress});
+  }
   else if(screen==='result'){
     const done=session.run.kind!=='backlog'&&session.run.index===session.run.tiers.length-1;
     app.innerHTML=header()+postmortemHTML(session,{seriesDone:done})+footer();replayIndex=0;drawReplay();
@@ -44,9 +52,9 @@ function render(){
 function titleWorld(){
   const w=9,h=7,tiles=new Uint8Array(w*h);for(let y=0;y<h;y++)for(let x=0;x<w;x++)if(x===0||y===0||x===w-1||y===h-1)tiles[y*w+x]=1;
   tiles[2*w+4]=1;tiles[3*w+4]=1;tiles[4*w+6]=2;tiles[2*w+6]=2;
-  return createWorld({w,h,tiles,conveyors:new Map([[4*w+2,1],[4*w+3,1]]),crates:[{x:6,y:3}],exit:{x:7,y:1},robots:[{id:'r0',x:2,y:3,dir:0,program:['FWD','RIGHT','FWD','FWD','LEFT','FWD']}],maxCycles:6});
+  return createWorld({w,h,tiles,conveyors:new Map([[4*w+2,1],[4*w+3,1]]),crates:[{x:6,y:3}],exit:{x:7,y:1},robots:[{id:'r0',x:2,y:3,dir:0,program:['FWD','RIGHT','LEFT','FWD','LEFT','FWD']}],maxCycles:6});
 }
-function drawTitle(){const world=titleWorld();const next=preview(world,'r0',{slot:2,op:'JUMP'});drawArena(document.querySelector('#hero-arena'),world,{patchTrace:next.trace});}
+function drawTitle(){const world=titleWorld();const next=preview(world,'r0',{slot:2,op:'FWD'});drawArena(document.querySelector('#hero-arena'),world,{patchTrace:next.trace});}
 function forecasts(){const key=session.history.length+':'+JSON.stringify(hoverPatch||pending);if(key===forecastKey)return;forecastKey=key;baseForecast=preview(session.world,'r0');patchForecast=hoverPatch||pending?preview(session.world,'r0',hoverPatch||pending):null;}
 function renderPlay(){
   const{ticket,world,run}=session,robot=world.robots[0];
@@ -96,7 +104,7 @@ async function deploy(ship=false){
   for(const frame of result.trace){
     activeTick=frame.tick;session.displayWorld=frame.world;renderPlay();
     const op=frame.world.robots[0].program[frame.tick],duration=reduced()?0:450/save.settings.speed;
-    if(duration)await animate(duration,progress=>drawGame({from:frame.before,progress,op}));else drawGame({op});
+    if(duration){drawGame({from:frame.before,progress:0,op,events:frame.events});await animate(duration,progress=>drawGame({from:frame.before,progress,op,events:frame.events}));}else drawGame({op});
     for(const event of frame.events)audio.play(event.type);
   }
   session.displayWorld=null;activeTick=-1;busy=false;forecastKey='';session.announcement=t('logCycle',session.log.at(-1));
@@ -112,7 +120,17 @@ function finish(success){
 }
 function next(){const run=session.run;if(run.kind!=='backlog'&&run.index<run.tiers.length-1){const nextRun={...run,index:run.index+1};loadTicket(`${run.seed}:${nextRun.index}`,run.tiers[nextRun.index],nextRun);}else{tier=session.ticket.tier;newRun('backlog',freshSeed('backlog'));}}
 function chooseOp(op){if(screen!=='play'||busy)return;const current=session.world.robots[0].program[selected];pending=op===current?null:{slot:selected,op};hoverPatch=null;audio.unlock();audio.play('patch');refreshProgram();}
-function home(){if(busy)return;++loadToken;if(screen==='play')persist();screen='title';render();}
+function home(){if(busy||prodUI?.isBusy())return;++loadToken;if(screen==='play')persist();prodUI?.dispose();prodUI=null;screen='title';render();window.scrollTo({top:0,behavior:'auto'});}
+function openProd(){if(busy)return;screen='prod';render();window.scrollTo({top:0,behavior:'instant'});}
+function prodProgress(event){
+  if(event.type==='settings')Object.assign(save.settings,event.settings);
+  if(event.type==='prod-result'&&!event.closedEarly){
+    save.prod??={games:{intern:0,ops:0,senior:0},wins:{intern:0,ops:0,senior:0}};
+    save.prod.games[event.level]=(save.prod.games[event.level]||0)+1;
+    if(event.won)save.prod.wins[event.level]=(save.prod.wins[event.level]||0)+1;
+  }
+  persist();
+}
 function clearReplay(){if(replayTimer){clearInterval(replayTimer);replayTimer=null;}}
 function drawReplay(){
   const canvas=document.querySelector('#replay-arena');if(!canvas)return;
@@ -132,8 +150,8 @@ async function copy(text){try{await navigator.clipboard.writeText(text);toast(t(
 async function card(copyImage=false){const canvas=makePostmortemCard(session);canvas.toBlob(async blob=>{if(!blob)return;if(copyImage){try{await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);toast(t('copied'));}catch{toast(t('clipboardError'));}}else{download(blob,`hotfix-${session.ticket.id}.png`);toast(t('downloaded'));}},'image/png');}
 const actions={
   home,backlog:()=>newRun('backlog'),sprint:()=>newRun('sprint'),daily:()=>newRun('daily'),resume,
-  prod:()=>modal(`<div class="modal-intro"><p class="eyebrow">${t('prod')}</p><h2>${t('prodDesc')}</h2><p>${t('aboutEdition')}</p></div>`),
-  rules:()=>modal(rulesHTML()),settings,about:()=>modal(`<div class="modal-intro"><p class="eyebrow">Hotfix / v0.1.0</p><h2>${t('titleCaption')}</h2><p>${t('aboutText')}</p><p>${t('aboutEdition')}</p><p>${t('aboutPrivacy')}</p></div>`),
+  prod:openProd,
+  rules:()=>modal(rulesHTML()),settings,about:()=>modal(`<div class="modal-intro"><p class="eyebrow">Hotfix / v0.2 preview</p><h2>${t('titleCaption')}</h2><p>${t('aboutText')}</p><p>${t('aboutEdition')}</p><p>${t('aboutPrivacy')}</p></div>`),
   language:()=>{setLanguage(getLanguage()==='fr'?'en':'fr');persist();render();},
   deploy:()=>deploy(),ship:()=>deploy(true),cancel:()=>{pending=null;hoverPatch=null;refreshProgram();},speed:()=>{save.settings.speed=save.settings.speed===4?1:save.settings.speed*2;persist();document.querySelector('.speed-button').textContent='×'+save.settings.speed;},
   abandon:()=>{if(!busy&&screen==='play')finish(false);},next,

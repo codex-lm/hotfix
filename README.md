@@ -6,6 +6,12 @@ Hotfix is a deterministic programming puzzle in a bright warehouse. Inspect the 
 
 The Tickets edition includes Backlog, an eight-ticket Sprint and a five-ticket daily challenge, English/French, keyboard/touch controls, save import/export, exact before/after forecasts, replay and downloadable 1200×630 postmortems. The daily seed uses UTC; the first completed attempt stays official, including failures, and unfinished attempts resume where they stopped.
 
+**Current `main` also includes a Prod preview against 3–7 bots.** Choose Stagiaire, Ops or Senior, claim three beacons, observe the other programs, and work with the rotating execution order. Wins are recorded locally by bot level. The complete Tickets milestone is preserved at [v0.1.0](https://github.com/codex-lm/hotfix/tree/v0.1.0).
+
+Online LOB7 rooms are deliberately not activated in this preview. The authoritative transport, replay, timeout and late-join logic has mock coverage, but the real bridge identity fields must be observed in a real LOB7 room before enabling it. This is not a claim of live multiplayer certification or a complete M2 release. M3 tiles/variants/hints remain future work.
+
+Preview checks: 12 local suites pass. An eight-robot Senior match reached its ranking through actual browser controls, language changes preserved the match, and the 390px layout retained 48px slot targets without horizontal overflow. An independent review reproduced and verified fixes for host reload commands, silent-player takeover, late roster metadata and exposed observations. See [PROGRESS.md](PROGRESS.md) for the scope and remaining limits.
+
 ## Play locally
 
 No npm, dependency installation or build is needed. Use a static HTTP server; browsers cannot load these ES modules directly from a `file:` URL.
@@ -53,7 +59,7 @@ Recorded on 2026-10-28, Windows, Node 24.19 and the Codex in-app browser. Browse
 - [x] All seven instructions and edge cases have ASCII/table rule tests; immutable simulation and byte-identical replay are checked.
 - [x] 1,000 seeds per tier: certified par, witnessed solution, deterministic titles, complete-state proof keys, generation-order independence and independent brute force on small cases.
 - [x] 200 generated tickets × 200 random patches: 40,000 complete forecast/execution world and event-trace comparisons, including intermediate mutable geometry.
-- [x] One incident per tier solved through browser controls using its certified solution. Tutorial navigation completed in 1.6 seconds. Seeds for tiers 2–4: `acceptance-tier-2`, `acceptance-tier-3`, `acceptance-tier-4`; all earned three stars.
+- [x] One incident per tier solved through browser controls using its certified solution. Tutorial navigation completed in 1.6 seconds with reduced motion enabled. Seeds for tiers 2–4: `acceptance-tier-2`, `acceptance-tier-3`, `acceptance-tier-4`; all earned three stars.
 - [x] Tier-4 browser generation for the acceptance seed: 470ms. The 4,000-ticket Node campaign stayed below two seconds per ticket. Fresh-module async Node profiles used a simulated rAF and measured maximum synchronous slices of 9.01–11.19ms; these are local measurements, not universal device guarantees.
 - [x] Complete FR/EN dictionaries with matching keys. Language switching, keyboard focus, reduced motion and 390px layout checked.
 - [x] Best-score accounting, independent Sprint/Daily checkpoints, first daily score preservation, private-storage/quota failures and malformed import validation covered by regression tests.
@@ -67,6 +73,7 @@ The bot performance criterion belongs to M2, consistent with the milestone scope
 
 - `src/core/`: seeded PRNG, world, opcodes, immutable simulator, events, forecast and replay. This is the only implementation of movement rules.
 - `src/tickets/`: tier layouts, constructive candidates, exact search, daily cache and scoring.
+- `src/prod/`, `src/ai/`, `src/net/`: arena setup, three deterministic bot levels, local transport and the prepared room protocol.
 - `src/ui/`, `src/i18n/`: canvas warehouse, patch editor, rules, commits, storage, postmortem and translation.
 - `assets/manifest.json`: received images/audio only. Missing visuals use procedural canvas artwork, and missing sound cues remain silent.
 - `tests/`: Node assertions with no dependency or package manifest.

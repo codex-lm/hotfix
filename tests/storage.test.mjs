@@ -84,6 +84,11 @@ export default async function run() {
     save.progress.stars = [999, 999, 999, 999]; save.progress.tickets = 999;
     save = roundTrip(save);
     assert.deepEqual(save.progress.stars, [3, 2, 0, 0]); assert.equal(save.progress.tickets, 2, 'import recomputes totals from individual bests');
+    save.prod.games.senior=3;save.prod.wins.senior=1;
+    save=roundTrip(save);
+    assert.equal(save.prod.games.senior,3);assert.equal(save.prod.wins.senior,1,'bot-level results survive save/import');
+    assert.equal(validateSave({schemaVersion:1}).prod.wins.ops,0,'older Tickets saves remain compatible');
+    assert.equal(validateSave({schemaVersion:1,prod:{games:{ops:2},wins:{ops:99}}}).prod.wins.ops,2,'wins cannot exceed completed games');
 
     assert.throws(() => validateSave(null), /Invalid/);
     assert.throws(() => validateSave({ schemaVersion: 2 }), /Invalid/);

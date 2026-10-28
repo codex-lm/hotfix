@@ -9,19 +9,98 @@ function arrow(ctx,x,y,size,dir,color,width=2) {
   ctx.beginPath();ctx.moveTo(0,size/2);ctx.lineTo(0,-size/2);ctx.moveTo(-size/3,-size/6);ctx.lineTo(0,-size/2);ctx.lineTo(size/3,-size/6);ctx.stroke();ctx.restore();
 }
 function imageTile(ctx,key,x,y,s) { const image=getImage(key); if (!image) return false; ctx.drawImage(image,x,y,s,s); return true; }
+const tintedMasks = new WeakMap();
+function robotMask(color) {
+  const mask=getImage('robots/robot-mask');if(!mask)return null;
+  let colors=tintedMasks.get(mask);if(!colors){colors=new Map();tintedMasks.set(mask,colors);}
+  if(colors.has(color))return colors.get(color);
+  const canvas=typeof OffscreenCanvas!=='undefined'?new OffscreenCanvas(mask.naturalWidth||mask.width||256,mask.naturalHeight||mask.height||256):globalThis.document?.createElement('canvas');
+  if(!canvas)return null;
+  canvas.width=mask.naturalWidth||mask.width||256;canvas.height=mask.naturalHeight||mask.height||256;
+  const ctx=canvas.getContext('2d');ctx.drawImage(mask,0,0,canvas.width,canvas.height);ctx.globalCompositeOperation='source-in';ctx.fillStyle=color;ctx.fillRect(0,0,canvas.width,canvas.height);
+  colors.set(color,canvas);return canvas;
+}
 export function drawRobot(ctx,x,y,s,dir=0,color=COLORS[0],op='',alpha=1) {
-  ctx.save();ctx.globalAlpha=alpha;ctx.translate(x,y);ctx.rotate(dir*Math.PI/2);
-  const sprite=getImage(`robots/robot-${['N','E','S','O'][dir]}`);
-  if (sprite) {ctx.rotate(-dir*Math.PI/2);ctx.drawImage(sprite,-s*.45,-s*.45,s*.9,s*.9);ctx.restore();return;}
-  ctx.shadowColor='#1b1d2138';ctx.shadowBlur=s*.09;ctx.shadowOffsetY=s*.07;
-  rect(ctx,-s*.28,-s*.32,s*.56,s*.67,color,s*.16);ctx.shadowColor='transparent';
-  rect(ctx,-s*.36,-s*.19,s*.1,s*.33,'#282c32',s*.035);rect(ctx,s*.26,-s*.19,s*.1,s*.33,'#282c32',s*.035);
-  rect(ctx,-s*.22,-s*.27,s*.44,s*.3,'#F7F6F2',s*.075);
+  ctx.save();ctx.globalAlpha*=alpha;ctx.translate(x,y);ctx.rotate(dir*Math.PI/2);
+  const cardinal=((Math.round(dir)%4)+4)%4;
+  let sprite=getImage(`robots/robot-${['N','E','S','O'][cardinal]}`),spriteDir=cardinal;
+  if(!sprite){sprite=getImage('robots/robot-N');spriteDir=0;}
+  if(sprite){
+    // Cardinal renders rotate only by the fractional turn still being animated.
+    ctx.rotate(-spriteDir*Math.PI/2);ctx.drawImage(sprite,-s*.45,-s*.45,s*.9,s*.9);ctx.rotate(spriteDir*Math.PI/2);
+    const mask=robotMask(color);if(mask)ctx.drawImage(mask,-s*.45,-s*.45,s*.9,s*.9);
+  }else{
+    ctx.shadowColor='#1b1d2138';ctx.shadowBlur=s*.09;ctx.shadowOffsetY=s*.07;
+    rect(ctx,-s*.28,-s*.32,s*.56,s*.67,color,s*.16);ctx.shadowColor='transparent';
+    rect(ctx,-s*.36,-s*.19,s*.1,s*.33,'#282c32',s*.035);rect(ctx,s*.26,-s*.19,s*.1,s*.33,'#282c32',s*.035);
+    rect(ctx,-s*.22,-s*.27,s*.44,s*.3,'#F7F6F2',s*.075);
+    rect(ctx,-s*.16,s*.12,s*.32,s*.05,'#ffffff50',s*.025);
+    ctx.fillStyle='#F7F6F2';ctx.beginPath();ctx.arc(s*.16,s*.24,s*.025,0,Math.PI*2);ctx.fill();
+  }
   rect(ctx,-s*.18,-s*.23,s*.36,s*.2,'#23272E',s*.045);
   if(op) {ctx.fillStyle='#F7F6F2';ctx.font=`600 ${s*.115}px "JetBrains Mono",monospace`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(op,0,-s*.13);}
   else {rect(ctx,-s*.11,-s*.17,s*.065,s*.065,'#a1dbe0',s*.02);rect(ctx,s*.045,-s*.17,s*.065,s*.065,'#a1dbe0',s*.02);}
-  rect(ctx,-s*.16,s*.12,s*.32,s*.05,'#ffffff50',s*.025);
-  ctx.fillStyle='#F7F6F2';ctx.beginPath();ctx.arc(s*.16,s*.24,s*.025,0,Math.PI*2);ctx.fill();
+  ctx.restore();
+}
+
+const unit=value=>Math.max(0,Math.min(1,value));
+const mix=(a,b,p)=>a+(b-a)*p;
+const turnDelta=(from,to)=>((to-from+6)%4)-2;
+function presentationPose(entity,options,kind){
+  const progress=unit(options.progress??1),old=options.from?.[kind==='robot'?'robots':'crates']?.find(item=>item.id===entity.id);
+  const final={x:entity.x,y:entity.y,dir:entity.dir??0,scale:1,alpha:1,lift:0,flash:0,fallFrame:0};
+  if(!old)return final;
+  const events=(options.events??[]).filter(event=>kind==='robot'?event.robotId===entity.id:event.crateId===entity.id);
+  const filled=kind==='crate'&&events.some(event=>event.type==='filled');
+  if(progress>=1)return filled?{...final,scale:0,alpha:0}:final;
+  const segments=[];
+  let x=old.x,y=old.y,dir=old.dir??0;
+  for(const event of events){
+    if(['moved','pushed','conveyed'].includes(event.type)&&event.from&&event.to){
+      segments.push({type:'move',from:event.from,to:event.to,fromDir:dir,toDir:dir,weight:1,jump:event.op==='JUMP'});x=event.to.x;y=event.to.y;
+    }else if(event.type==='turned'){
+      segments.push({type:'turn',from:event.at??{x,y},to:event.at??{x,y},fromDir:event.fromDir??dir,toDir:event.dir,weight:.65});dir=event.dir;
+    }else if(event.type==='fell'||event.type==='filled'){
+      const at=event.from??event.at??{x,y};
+      segments.push({type:'fall',from:at,to:at,fromDir:dir,toDir:dir,weight:.75});x=at.x;y=at.y;
+    }else if(event.type==='respawned'){
+      const at=event.to??{x:entity.x,y:entity.y};dir=event.dir??entity.dir??dir;
+      segments.push({type:'respawn',from:at,to:at,fromDir:dir,toDir:dir,weight:.65});x=at.x;y=at.y;
+    }
+  }
+  if(!segments.length){
+    // Compatibility for callers which provide only adjacent before/after worlds.
+    const teleport=Math.abs(old.x-entity.x)+Math.abs(old.y-entity.y)>2;
+    return {...final,x:teleport?entity.x:mix(old.x,entity.x,progress),y:teleport?entity.y:mix(old.y,entity.y,progress),dir:(old.dir??0)+turnDelta(old.dir??0,entity.dir??0)*progress};
+  }
+  const total=segments.reduce((sum,segment)=>sum+segment.weight,0);
+  let remaining=progress*total;
+  for(let index=0;index<segments.length;index++){
+    const segment=segments[index];
+    if(remaining>segment.weight&&index<segments.length-1){remaining-=segment.weight;continue;}
+    const p=unit(remaining/segment.weight);
+    const pose={...final,x:mix(segment.from.x,segment.to.x,p),y:mix(segment.from.y,segment.to.y,p),dir:segment.fromDir+turnDelta(segment.fromDir,segment.toDir)*p};
+    if(segment.jump){pose.lift=Math.sin(Math.PI*p)*.17;pose.scale=1+Math.sin(Math.PI*p)*.07;}
+    if(segment.type==='fall'){pose.scale=Math.max(0,1-p*.94);pose.alpha=Math.max(0,1-p*1.2);pose.dir+=p*.32;pose.fallFrame=Math.min(6,Math.floor(p*6)+1);}
+    if(segment.type==='respawn'){pose.scale=.65+.35*p;pose.alpha=unit(p*2);pose.flash=Math.sin(Math.PI*p);}
+    return pose;
+  }
+  return final;
+}
+
+// Shared by the arena and the Prod number badges so one presentation pose is
+// used even while a robot shrinks into a hole or appears at its home tile.
+export function getRobotPose(robot,options={}){return presentationPose(robot,options,'robot');}
+export function getCratePose(crate,options={}){return presentationPose(crate,options,'crate');}
+
+function drawCrate(ctx,x,y,s,pose){
+  if(pose.alpha<=0||pose.scale<=0)return;
+  ctx.save();ctx.globalAlpha*=pose.alpha;ctx.translate(x+s/2,y+s/2);ctx.scale(pose.scale,pose.scale);ctx.rotate((pose.dir??0)*Math.PI/2);
+  const px=-s/2,py=-s/2;
+  if(!imageTile(ctx,'props/crate',px,py,s)){
+    ctx.shadowColor='#0002';ctx.shadowBlur=3;ctx.shadowOffsetY=3;rect(ctx,px+s*.16,py+s*.16,s*.68,s*.7,'#507f8c',4);ctx.shadowColor='transparent';
+    rect(ctx,px+s*.22,py+s*.2,s*.56,s*.08,'#739eaa',2);ctx.strokeStyle='#345f6c';ctx.lineWidth=3;ctx.strokeRect(px+s*.26,py+s*.34,s*.48,s*.34);
+  }
   ctx.restore();
 }
 function drawPath(ctx,world,trace,s,ox,oy,color,active=false,robotId=world.robots[0]?.id) {
@@ -39,6 +118,38 @@ function drawPath(ctx,world,trace,s,ox,oy,color,active=false,robotId=world.robot
     previous=next;
   }
   ctx.setLineDash([]);
+  if(s<38){
+    const groups=new Map();
+    trace.forEach((frame,index)=>{
+      const robot=frame.world.robots.find(item=>item.id===robotId);if(!robot)return;
+      const key=`${robot.x},${robot.y}`;
+      if(!groups.has(key))groups.set(key,{x:robot.x,y:robot.y,ticks:new Set(),turned:false,pushed:false});
+      const group=groups.get(key);group.ticks.add(index%6+1);
+      group.turned ||= frame.events.some(event=>event.type==='turned'&&event.robotId===robotId);
+      group.pushed ||= frame.events.some(event=>event.type==='pushed'&&event.by===robotId);
+    });
+    for(const group of groups.values()){
+      const ticks=[...group.ticks].sort((a,b)=>a-b);
+      const consecutive=ticks.length>1&&ticks.every((tick,index)=>tick===ticks[0]+index);
+      const label=consecutive?`${ticks[0]}–${ticks.at(-1)}`:ticks.join('·');
+      const cx=ox+(group.x+.5)*s,cy=oy+(group.y+.5)*s;
+      const font=Math.max(7,Math.min(9,s*.26)),height=Math.min(font+5,s-2);
+      ctx.save();
+      // A compact trace label belongs to this tile, including when a robot
+      // waits or turns six times. The tile clip also bounds narrow thumbnails.
+      ctx.beginPath();ctx.rect(ox+group.x*s+1,oy+group.y*s+1,s-2,s-2);ctx.clip();
+      ctx.font=`600 ${font}px "JetBrains Mono",monospace`;
+      const width=Math.min(s-4,Math.max(13,ctx.measureText(label).width+7));
+      const edge=s/2-height/2-1;
+      const y=cy+Math.max(-edge,Math.min(edge,(active?-1:1)*s*.26));
+      rect(ctx,cx-width/2,y-height/2,width,height,active?color:'#8f9594',3);
+      ctx.fillStyle='#fff';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,cx,y+.25,Math.max(1,width-4));
+      if(group.turned){ctx.strokeStyle=color;ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(cx-s*.33,cy,Math.min(3,s*.09),-Math.PI*.9,.15);ctx.stroke();}
+      if(group.pushed){ctx.fillStyle=color;ctx.fillRect(cx+s*.29,cy-2,Math.min(3,s*.10),4);}
+      ctx.restore();
+    }
+    ctx.restore();return;
+  }
   const occurrences=new Map();
   trace.forEach((frame,index)=>{
     const robot=frame.world.robots.find(r=>r.id===robotId);if(!robot)return;
@@ -59,11 +170,13 @@ export function drawArena(canvas,world,options={}) {
   const ctx=canvas.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
   const margin=options.compact?12:27,s=Math.min((width-margin*2)/world.w,(height-margin*2)/world.h);
   const ox=(width-world.w*s)/2,oy=(height-world.h*s)/2;
+  const progress=unit(options.progress??1),events=options.events??[];
+  const fillingHoles=new Set(options.from&&progress<1?events.filter(event=>event.type==='filled'&&event.at).map(event=>event.at.y*world.w+event.at.x):[]);
   ctx.fillStyle=options.background||'#D5D4CD';ctx.fillRect(0,0,width,height);
   // Painted bay border and subtle coordinate labels keep the board legible.
   ctx.fillStyle='#b6b7ae';ctx.fillRect(ox-5,oy-5,world.w*s+10,world.h*s+10);
   for(let y=0;y<world.h;y++)for(let x=0;x<world.w;x++){
-    const px=ox+x*s,py=oy+y*s,index=y*world.w+x,tile=world.tiles[index];
+    const px=ox+x*s,py=oy+y*s,index=y*world.w+x,tile=fillingHoles.has(index)?2:world.tiles[index];
     if(!imageTile(ctx,`tiles/floor-${1+(x*3+y*7)%4}`,px,py,s)){
       rect(ctx,px,py,s,s,(x+y)%2?'#E6E4DD':'#EAE8E1');
       ctx.strokeStyle='#d5d3cb';ctx.lineWidth=1;ctx.strokeRect(px+.5,py+.5,s-1,s-1);
@@ -93,10 +206,16 @@ export function drawArena(canvas,world,options={}) {
     rect(ctx,px+3,py+3,s-6,s-6,'#c8ded0',3);ctx.strokeStyle='#3C9D5D';ctx.lineWidth=2;ctx.setLineDash([5,4]);ctx.strokeRect(px+6,py+6,s-12,s-12);ctx.setLineDash([]);arrow(ctx,px+s*.5,py+s*.5,s*.42,1,'#33834e',3);
   }}
   for(const robot of world.robots){const hx=ox+robot.home.x*s,hy=oy+robot.home.y*s;ctx.strokeStyle='#F2652B66';ctx.lineWidth=1.5;ctx.setLineDash([3,4]);ctx.strokeRect(hx+s*.12,hy+s*.12,s*.76,s*.76);ctx.setLineDash([]);}
-  for(const crate of world.crates){const px=ox+crate.x*s,py=oy+crate.y*s;if(!imageTile(ctx,'props/crate',px,py,s)){
-    ctx.shadowColor='#0002';ctx.shadowBlur=3;ctx.shadowOffsetY=3;rect(ctx,px+s*.16,py+s*.16,s*.68,s*.7,'#507f8c',4);ctx.shadowColor='transparent';
-    rect(ctx,px+s*.22,py+s*.2,s*.56,s*.08,'#739eaa',2);ctx.strokeStyle='#345f6c';ctx.lineWidth=3;ctx.strokeRect(px+s*.26,py+s*.34,s*.48,s*.34);
-  }}
+  const crates=new Map(world.crates.map(crate=>[crate.id,crate]));
+  if(options.from&&progress<1)for(const crate of options.from.crates){
+    if(crates.has(crate.id))continue;
+    const filled=events.find(event=>event.type==='filled'&&event.crateId===crate.id);
+    if(filled)crates.set(crate.id,{...crate,x:filled.at.x,y:filled.at.y});
+  }
+  for(const crate of crates.values()){
+    const pose=getCratePose(crate,options);
+    drawCrate(ctx,ox+pose.x*s,oy+pose.y*s,s,pose);
+  }
   for(const beacon of world.beacons){const px=ox+beacon.x*s,py=oy+beacon.y*s;if(!imageTile(ctx,'props/beacon',px,py,s)){
     ctx.fillStyle='#F2652B22';ctx.beginPath();ctx.arc(px+s*.5,py+s*.5,s*.36,0,Math.PI*2);ctx.fill();
     rect(ctx,px+s*.34,py+s*.34,s*.32,s*.32,'#F2652B',5);ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(px+s*.5,py+s*.5,s*.07,0,Math.PI*2);ctx.fill();
@@ -104,11 +223,16 @@ export function drawArena(canvas,world,options={}) {
   drawPath(ctx,world,options.baseTrace,s,ox,oy,'#8f9594',false,options.robotId);
   drawPath(ctx,world,options.patchTrace,s,ox,oy,'#e45b25',true,options.robotId);
   for(let i=0;i<world.robots.length;i++){
-    const robot=world.robots[i],old=options.from?.robots.find(r=>r.id===robot.id),p=options.progress??1;
-    const teleport=old&&Math.abs(old.x-robot.x)+Math.abs(old.y-robot.y)>2;
-    const x=old&&!teleport?old.x+(robot.x-old.x)*p:robot.x,y=old&&!teleport?old.y+(robot.y-old.y)*p:robot.y;
-    let dir=robot.dir;if(old&&p<1){let delta=((robot.dir-old.dir+6)%4)-2;dir=old.dir+delta*p;}
-    drawRobot(ctx,ox+(x+.5)*s,oy+(y+.5)*s,s,dir,COLORS[i%8],options.op||'');
+    const robot=world.robots[i],pose=getRobotPose(robot,options);
+    if(pose.alpha<=0||pose.scale<=0)continue;
+    const x=ox+(pose.x+.5)*s,y=oy+(pose.y+.5)*s;
+    if(pose.lift){ctx.save();ctx.globalAlpha=.12;ctx.fillStyle='#1B1D21';ctx.beginPath();ctx.ellipse(x,y+s*.25,s*.28,s*.10,0,0,Math.PI*2);ctx.fill();ctx.restore();}
+    if(pose.flash){ctx.save();ctx.globalAlpha=pose.flash*.55;ctx.strokeStyle='#F7F6F2';ctx.fillStyle='#F7F6F2';ctx.lineWidth=Math.max(2,s*.06);ctx.beginPath();ctx.arc(x,y,s*(.35+pose.flash*.14),0,Math.PI*2);ctx.stroke();ctx.globalAlpha=pose.flash*.2;ctx.fill();ctx.restore();}
+    ctx.save();ctx.translate(x,y-pose.lift*s);ctx.scale(pose.scale,pose.scale);
+    const fall=pose.fallFrame?getImage(`fx/fall-${pose.fallFrame}`):null;
+    if(fall){ctx.globalAlpha*=pose.alpha;ctx.drawImage(fall,-s*.45,-s*.45,s*.9,s*.9);}
+    else drawRobot(ctx,0,0,s,pose.dir,robot.color||COLORS[i%8],options.opByRobot?.[robot.id]??options.opByRobot?.get?.(robot.id)??options.op??'',pose.alpha);
+    ctx.restore();
   }
   if(!options.compact){ctx.font='500 10px "JetBrains Mono",monospace';ctx.fillStyle='#64716c';ctx.textAlign='center';ctx.textBaseline='middle';for(let x=0;x<world.w;x++)ctx.fillText(String.fromCharCode(65+x),ox+(x+.5)*s,oy-13);for(let y=0;y<world.h;y++)ctx.fillText(String(y+1).padStart(2,'0'),ox-14,oy+(y+.5)*s);}
 }
