@@ -13,3 +13,9 @@
 Done: initialized a new local `main` checkout and the static module entrypoint; legal files, local fonts, asset brief and the unmodified Rooms SDK are being prepared.
 Deviations: none beyond the explicit rule clarifications above.
 Next: pure simulator with ASCII rule tests and byte-identical replay.
+
+## M1 · 2 — simulation
+
+Done: pure simulator, deterministic PRNG, all seven opcodes, atomic pushing, simultaneous conveyors, respawn, required beacons, canonical replay and preview. ASCII rule cases, replay tests and 200 preview/patch comparisons pass.
+Deviations: the explicit tick phase order takes precedence over the prose about immediate falls; instructions all resolve before falls, then conveyors and falls again. This distinction only affects multiplayer interactions. A measured 8-robot simulation without trace averages below 20 microseconds on this machine; this is a local microbenchmark, not a cross-device guarantee.
+Next: playable canvas arena, patch selector, tick animation and title navigation.
