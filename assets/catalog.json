@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "status": "requested-not-delivered",
+  "images": {
+    "tiles/floor-1": "img/tiles/floor-1.png",
+    "tiles/floor-2": "img/tiles/floor-2.png",
+    "tiles/floor-3": "img/tiles/floor-3.png",
+    "tiles/floor-4": "img/tiles/floor-4.png",
+    "tiles/wall": "img/tiles/wall.png",
+    "tiles/wall-top": "img/tiles/wall-top.png",
+    "tiles/hole": "img/tiles/hole.png",
+    "tiles/conveyor": "img/tiles/conveyor.png",
+    "tiles/conveyor-strip": "img/tiles/conveyor-strip.png",
+    "props/crate": "img/props/crate.png",
+    "props/beacon": "img/props/beacon.png",
+    "props/beacon-halo": "img/props/beacon-halo.png",
+    "tiles/exit": "img/tiles/exit.png",
+    "robots/robot-N": "img/robots/robot-N.png",
+    "robots/robot-E": "img/robots/robot-E.png",
+    "robots/robot-S": "img/robots/robot-S.png",
+    "robots/robot-O": "img/robots/robot-O.png",
+    "robots/robot-mask": "img/robots/robot-mask.png",
+    "fx/fall-1": "img/fx/fall-1.png",
+    "fx/fall-2": "img/fx/fall-2.png",
+    "fx/fall-3": "img/fx/fall-3.png",
+    "fx/fall-4": "img/fx/fall-4.png",
+    "fx/fall-5": "img/fx/fall-5.png",
+    "fx/fall-6": "img/fx/fall-6.png",
+    "bg/warehouse": "img/bg/warehouse.png"
+  },
+  "music": {
+    "title": [
+      "audio/music/title.ogg",
+      "audio/music/title.m4a"
+    ],
+    "gameplay": [
+      "audio/music/gameplay.ogg",
+      "audio/music/gameplay.m4a"
+    ],
+    "resolved": [
+      "audio/music/resolved.ogg",
+      "audio/music/resolved.m4a"
+    ],
+    "escalated": [
+      "audio/music/escalated.ogg",
+      "audio/music/escalated.m4a"
+    ]
+  },
+  "sfx": {
+    "move": [
+      "audio/sfx/move.ogg",
+      "audio/sfx/move.m4a"
+    ],
+    "turn": [
+      "audio/sfx/turn.ogg",
+      "audio/sfx/turn.m4a"
+    ],
+    "push": [
+      "audio/sfx/push.ogg",
+      "audio/sfx/push.m4a"
+    ],
+    "crate-push": [
+      "audio/sfx/crate-push.ogg",
+      "audio/sfx/crate-push.m4a"
+    ],
+    "hole-filled": [
+      "audio/sfx/hole-filled.ogg",
+      "audio/sfx/hole-filled.m4a"
+    ],
+    "fall": [
+      "audio/sfx/fall.ogg",
+      "audio/sfx/fall.m4a"
+    ],
+    "respawn": [
+      "audio/sfx/respawn.ogg",
+      "audio/sfx/respawn.m4a"
+    ],
+    "conveyor": [
+      "audio/sfx/conveyor.ogg",
+      "audio/sfx/conveyor.m4a"
+    ],
+    "beacon": [
+      "audio/sfx/beacon.ogg",
+      "audio/sfx/beacon.m4a"
+    ],
+    "exit": [
+      "audio/sfx/exit.ogg",
+      "audio/sfx/exit.m4a"
+    ],
+    "patch-select": [
+      "audio/sfx/patch-select.ogg",
+      "audio/sfx/patch-select.m4a"
+    ],
+    "deploy": [
+      "audio/sfx/deploy.ogg",
+      "audio/sfx/deploy.m4a"
+    ],
+    "cycle-end": [
+      "audio/sfx/cycle-end.ogg",
+      "audio/sfx/cycle-end.m4a"
+    ],
+    "countdown": [
+      "audio/sfx/countdown.ogg",
+      "audio/sfx/countdown.m4a"
+    ],
+    "victory": [
+      "audio/sfx/victory.ogg",
+      "audio/sfx/victory.m4a"
+    ],
+    "failure": [
+      "audio/sfx/failure.ogg",
+      "audio/sfx/failure.m4a"
+    ]
+  }
+}

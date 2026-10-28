@@ -1,0 +1,19 @@
+{
+  "title": "Hotfix",
+  "description": "Your robot is running in production with a broken six-step program. Patch one instruction per cycle to resolve procedural incident tickets. Backlog, Sprint and a daily challenge. English and French. Prod multiplayer is planned for M2.",
+  "entrypoint": "index.html",
+  "license": "MIT",
+  "genre": ["Puzzle", "Programming", "Strategy"],
+  "themes": ["Robots", "Factory", "Daily"],
+  "controls": [
+    "Mouse or touch: select a program slot, choose an instruction, then Deploy.",
+    "Keyboard: 1-6 select a slot; F B L R W J P choose an instruction; Enter or Space deploy; Escape cancels.",
+    "Arrow keys navigate program slots and title menu. Plus and minus change execution speed."
+  ],
+  "credits": [
+    "Cédric Bernadac — game design and publication.",
+    "Developed with AI assistance (Codex). Original procedural canvas artwork.",
+    "Barlow by Jeremy Tribby and JetBrains Mono by JetBrains: SIL Open Font License 1.1.",
+    "LOB7 Rooms SDK bundled unmodified as lob7-rooms.js; online play planned for M2."
+  ]
+}

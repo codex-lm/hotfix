@@ -1,0 +1,7 @@
+SPEC-hotfix.md
+SPEC-jump1.md
+.qa/
+*.log
+__pycache__/
+.DS_Store
+Thumbs.db
