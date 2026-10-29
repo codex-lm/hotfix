@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "a375fb26b66847e8eed136fc3f1f6016d229bfe8",
+  "packagingCommit": "751dfa52917969a7b07c23c56c1c5065148091fd",
+  "version": "0.2.0-preview.3",
+  "audioFormats": ["ogg", "mp3"],
+  "publicationPinReason": "Keep the GitHub commit metadata response below the LOB7 recipe limit. The playable package and media are unchanged from packagingCommit."
+}
