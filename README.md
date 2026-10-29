@@ -1,5 +1,7 @@
 # Hotfix
 
+**[Play Hotfix on LOB7](https://lob7.com/player/br_s_40268e3e-1e0b-4022-aebc-5f5ba61b0e42)** — published edition `0.2.0-preview.3`, Tickets and local Prod against bots.
+
 **Six instructions. One patch per cycle. A robot already running in production.**
 
 Hotfix is a deterministic programming puzzle in a bright warehouse. Inspect the next six ticks, replace at most one instruction, and deploy. Your patch persists into the next cycle, while the robot keeps moving. Every ticket has a minimum patch count proved by exhaustive search.
