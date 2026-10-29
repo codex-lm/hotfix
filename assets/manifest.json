@@ -5,29 +5,29 @@
     "music": {
       "title": [
         "audio/music/title.ogg",
-        "audio/music/title.m4a"
+        "audio/music/title.mp3"
       ],
       "gameplay": [
         "audio/music/gameplay.ogg",
-        "audio/music/gameplay.m4a"
+        "audio/music/gameplay.mp3"
       ]
     },
     "sfx": {
       "move": [
         "audio/sfx/move.ogg",
-        "audio/sfx/move.m4a"
+        "audio/sfx/move.mp3"
       ],
       "patch-select": [
         "audio/sfx/patch-select.ogg",
-        "audio/sfx/patch-select.m4a"
+        "audio/sfx/patch-select.mp3"
       ],
       "deploy": [
         "audio/sfx/deploy.ogg",
-        "audio/sfx/deploy.m4a"
+        "audio/sfx/deploy.mp3"
       ],
       "victory": [
         "audio/sfx/victory.ogg",
-        "audio/sfx/victory.m4a"
+        "audio/sfx/victory.mp3"
       ]
     }
   }

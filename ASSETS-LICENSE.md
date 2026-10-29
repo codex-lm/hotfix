@@ -24,10 +24,10 @@ Each source WAV is retained locally outside the published tree in ignored
 
 | Game files | Generated | Service / plan | Source and selection | Technical preparation |
 | --- | --- | --- | --- | --- |
-| `assets/audio/sfx/move.ogg`, `move.m4a` | 2026-10-28 | ElevenLabs Sound Effects v3 / Starter | [Generation history](https://elevenlabs.io/app/sound-effects/history?id=HGwI723N3HDOE5pi2VXs), first of four displayed variants | Mono 44.1 kHz, 0.372 s, OGG Vorbis 128 kbit/s and AAC fallback; silence trimmed; peak approximately −8 dBTP. |
-| `assets/audio/sfx/patch-select.ogg`, `patch-select.m4a` | 2026-10-28 | ElevenLabs Sound Effects v3 / Starter | [Generation history](https://elevenlabs.io/app/sound-effects/history?id=57l9vp5ROz4qF0gTgC40), first of four displayed variants | Mono 44.1 kHz, 0.203 s, OGG Vorbis 128 kbit/s and AAC fallback; silence trimmed; peak approximately −8 dBTP. |
-| `assets/audio/sfx/deploy.ogg`, `deploy.m4a` | 2026-10-28 | ElevenLabs Sound Effects v3 / Starter | [Generation history](https://elevenlabs.io/app/sound-effects/history?id=7kV7STaR841nMPJzeV8k), first displayed variant | Mono 44.1 kHz, 0.389 s, OGG Vorbis 128 kbit/s and AAC fallback; silence trimmed; peak approximately −8 dBTP. |
-| `assets/audio/sfx/victory.ogg`, `victory.m4a` | 2026-10-28 | ElevenLabs Sound Effects v3 / Starter | [Generation history](https://elevenlabs.io/app/sound-effects/history?id=Jqba3Fsx3fjBSpCCAipG), first of four displayed variants | Mono 44.1 kHz, 0.853 s, OGG Vorbis 128 kbit/s and AAC fallback; silence trimmed; approximately −20 LUFS, true peak below −3.6 dBTP. |
+| `assets/audio/sfx/move.ogg`, `move.mp3` | 2026-10-28 | ElevenLabs Sound Effects v3 / Starter | [Generation history](https://elevenlabs.io/app/sound-effects/history?id=HGwI723N3HDOE5pi2VXs), first of four displayed variants | Mono 44.1 kHz, 0.372 s, OGG Vorbis 128 kbit/s and MP3 192 kbit/s fallback; silence trimmed; peak approximately −8 dBTP. |
+| `assets/audio/sfx/patch-select.ogg`, `patch-select.mp3` | 2026-10-28 | ElevenLabs Sound Effects v3 / Starter | [Generation history](https://elevenlabs.io/app/sound-effects/history?id=57l9vp5ROz4qF0gTgC40), first of four displayed variants | Mono 44.1 kHz, 0.203 s, OGG Vorbis 128 kbit/s and MP3 192 kbit/s fallback; silence trimmed; peak approximately −8 dBTP. |
+| `assets/audio/sfx/deploy.ogg`, `deploy.mp3` | 2026-10-28 | ElevenLabs Sound Effects v3 / Starter | [Generation history](https://elevenlabs.io/app/sound-effects/history?id=7kV7STaR841nMPJzeV8k), first displayed variant | Mono 44.1 kHz, 0.389 s, OGG Vorbis 128 kbit/s and MP3 192 kbit/s fallback; silence trimmed; peak approximately −8 dBTP. |
+| `assets/audio/sfx/victory.ogg`, `victory.mp3` | 2026-10-28 | ElevenLabs Sound Effects v3 / Starter | [Generation history](https://elevenlabs.io/app/sound-effects/history?id=Jqba3Fsx3fjBSpCCAipG), first of four displayed variants | Mono 44.1 kHz, 0.853 s, OGG Vorbis 128 kbit/s and MP3 192 kbit/s fallback; silence trimmed; approximately −20 LUFS, true peak below −3.6 dBTP. |
 
 The movement, patch-selection and deployment cues are too short for a finite EBU R128
 integrated loudness measurement. Their conversions use an explicitly recorded
@@ -63,8 +63,8 @@ explicit Suno/model/plan/source provenance comment without an account handle.
 
 | Game files | Generated | Source | Preparation and verified measurements |
 | --- | --- | --- | --- |
-| `assets/audio/music/title.ogg`, `title.m4a` | 2026-10-28 | [Hotfix — Night Shift](https://suno.com/song/e570e8a5-ac7f-4158-9986-c3e9669e2c99), selected second take | Stereo 44.1 kHz, 75.000 s, Vorbis 128 kbit/s and AAC fallback. Two-pass normalization: approximately −22 LUFS, true peak below −8.5 dBTP. A 0.35 s tail/head crossfade prepares the loop. |
-| `assets/audio/music/gameplay.ogg`, `gameplay.m4a` | 2026-10-28 | [Hotfix — Maintenance Window](https://suno.com/song/2ab38d5e-c573-4259-a36b-532defe7bd15), selected first take | Stereo 44.1 kHz, 120.000 s, Vorbis 128 kbit/s and AAC fallback. Two-pass normalization: approximately −22 LUFS, true peak below −7.8 dBTP. A 0.35 s tail/head crossfade prepares the loop. |
+| `assets/audio/music/title.ogg`, `title.mp3` | 2026-10-28 | [Hotfix — Night Shift](https://suno.com/song/e570e8a5-ac7f-4158-9986-c3e9669e2c99), selected second take | Stereo 44.1 kHz, 75.000 s, Vorbis 128 kbit/s and MP3 192 kbit/s fallback. Two-pass normalization: approximately −22 LUFS, true peak below −8.5 dBTP. A 0.35 s tail/head crossfade prepares the loop. |
+| `assets/audio/music/gameplay.ogg`, `gameplay.mp3` | 2026-10-28 | [Hotfix — Maintenance Window](https://suno.com/song/2ab38d5e-c573-4259-a36b-532defe7bd15), selected first take | Stereo 44.1 kHz, 120.000 s, Vorbis 128 kbit/s and MP3 192 kbit/s fallback. Two-pass normalization: approximately −22 LUFS, true peak below −7.8 dBTP. A 0.35 s tail/head crossfade prepares the loop. |
 
 The takes were selected by their displayed duration rather than by a listening
 comparison. The prompts requested instrumental music; no independent listening
@@ -107,3 +107,7 @@ as MIT or CC0 merely because they ship with this repository.
 
 The publisher verifies media rights for the actual generating account before
 publication. `assets/catalog.json` is a delivery checklist, not media evidence.
+
+## LOB7 static-export derivation
+
+This branch is derived from [source commit a375fb26b66847e8eed136fc3f1f6016d229bfe8](https://github.com/codex-lm/hotfix/commit/a375fb26b66847e8eed136fc3f1f6016d229bfe8). The development branch keeps the original AAC fallbacks, conversion tool and full tests. LOB7 rejects M4A files, so this export preserves every OGG byte and replaces only the six fallbacks with MP3 files encoded at 192 kbit/s directly from the hash-verified original recordings. The same trimming, crossfade and loudness preparation is applied. MP3 decoding, codec, duration, loudness and peaks were measured separately; the updated audits record both the preserved Vorbis and the new MP3 SHA-256 hashes. The short-cue LUFS limitation and all media-rights restrictions still apply. No new generation, download or purchase was made for this conversion.

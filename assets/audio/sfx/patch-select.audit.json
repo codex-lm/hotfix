@@ -45,20 +45,45 @@
       "postEncodingGainDb": 0.0
     },
     {
-      "file": "patch-select.m4a",
-      "sha256": "61c1ea8011dadd397ec60818e6b2fa816c8eb97adb638b2da6ba078bb0939fb4",
-      "codec": "aac",
+      "file": "patch-select.mp3",
+      "sha256": "6263d5ac6d2d4bee2c5ae230c2b8a2180ea49b38a0dcb60fcb57b5d3852c364a",
+      "codec": "mp3",
       "sampleRate": 44100,
       "channels": 1,
       "durationSeconds": 0.20263,
-      "bytes": 5092,
+      "bytes": 6506,
       "integratedLUFS": null,
-      "truePeakDbTP": -8.18,
+      "truePeakDbTP": -8.26,
       "loudnessRangeLU": 0.0,
       "postEncodingGainDb": 0.0
     }
   ],
   "warnings": [
     "Cue is too short for finite EBU R128 integrated loudness; normalized to -8 dBTP instead. The -20 LUFS target is unverified."
-  ]
+  ],
+  "staticExport": {
+    "sourceCommit": "a375fb26b66847e8eed136fc3f1f6016d229bfe8",
+    "convertedAtUTC": "2026-10-29T09:07:55.268410+00:00",
+    "reason": "LOB7 static file policy rejects M4A. Original Vorbis is preserved; MP3 fallback was generated from the hash-verified original recording.",
+    "inputKind": "original-downloaded-recording",
+    "encoder": "libmp3lame 192 kbit/s, Xing gapless metadata",
+    "processing": {
+      "kind": "cue",
+      "startSeconds": 0.0,
+      "requestedDurationSeconds": null,
+      "trimSilence": true,
+      "loopCrossfadeSeconds": 0,
+      "loopDurationSeconds": 0.20263,
+      "normalizationMode": "peak-fallback-short-cue",
+      "targetIntegratedLUFS": -20,
+      "maximumTruePeakDbTP": -2,
+      "encoderHeadroomTargetDbTP": -2.3,
+      "sampleRate": 44100,
+      "channels": 1
+    },
+    "publishedProvenanceComment": "Hotfix game audio; service=ElevenLabs; model=v3; plan=Starter; source=https://elevenlabs.io/app/sound-effects/history?id=57l9vp5ROz4qF0gTgC40",
+    "warnings": [
+      "Cue is too short for finite EBU R128 integrated loudness; normalized to -8 dBTP instead. The -20 LUFS target is unverified."
+    ]
+  }
 }

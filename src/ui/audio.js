@@ -31,7 +31,8 @@ export function createAudio(options = {}) {
     if (!paths.length) return null;
     const element = new Audio();
     const source = paths.find(path => {
-      const type = /\.ogg(?:$|\?)/i.test(path) ? 'audio/ogg; codecs="vorbis"' : 'audio/mp4';
+      const type = /\.ogg(?:$|\?)/i.test(path) ? 'audio/ogg; codecs="vorbis"'
+        : /\.mp3(?:$|\?)/i.test(path) ? 'audio/mpeg' : '';
       return element.canPlayType(type) && localAssetUrl(path);
     }) || paths.find(path => localAssetUrl(path));
     if (!source) return null;

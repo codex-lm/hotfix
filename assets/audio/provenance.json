@@ -19,7 +19,7 @@
       },
       "derivedFiles": [
         "sfx/move.ogg",
-        "sfx/move.m4a"
+        "sfx/move.mp3"
       ],
       "conversionAudit": "sfx/move.audit.json",
       "rights": {
@@ -37,7 +37,12 @@
         "musicalOrListeningReview": false
       },
       "durationSeconds": 0.371633,
-      "normalizationNote": "Cue is too short for finite EBU R128 integrated loudness; normalized to -8 dBTP instead. The -20 LUFS target is unverified."
+      "normalizationNote": "Cue is too short for finite EBU R128 integrated loudness; normalized to -8 dBTP instead. The -20 LUFS target is unverified.",
+      "staticExport": {
+        "sourceCommit": "a375fb26b66847e8eed136fc3f1f6016d229bfe8",
+        "reason": "LOB7 rejects M4A; preserved original Vorbis plus MP3 fallback from the hash-verified original recording.",
+        "mp3Encoder": "libmp3lame 192 kbit/s, Xing gapless metadata"
+      }
     },
     {
       "key": "patch-select",
@@ -57,7 +62,7 @@
       },
       "derivedFiles": [
         "sfx/patch-select.ogg",
-        "sfx/patch-select.m4a"
+        "sfx/patch-select.mp3"
       ],
       "conversionAudit": "sfx/patch-select.audit.json",
       "rights": {
@@ -75,7 +80,12 @@
         "musicalOrListeningReview": false
       },
       "durationSeconds": 0.20263,
-      "normalizationNote": "Cue is too short for finite EBU R128 integrated loudness; normalized to -8 dBTP instead. The -20 LUFS target is unverified."
+      "normalizationNote": "Cue is too short for finite EBU R128 integrated loudness; normalized to -8 dBTP instead. The -20 LUFS target is unverified.",
+      "staticExport": {
+        "sourceCommit": "a375fb26b66847e8eed136fc3f1f6016d229bfe8",
+        "reason": "LOB7 rejects M4A; preserved original Vorbis plus MP3 fallback from the hash-verified original recording.",
+        "mp3Encoder": "libmp3lame 192 kbit/s, Xing gapless metadata"
+      }
     },
     {
       "key": "deploy",
@@ -94,7 +104,7 @@
       },
       "derivedFiles": [
         "sfx/deploy.ogg",
-        "sfx/deploy.m4a"
+        "sfx/deploy.mp3"
       ],
       "conversionAudit": "sfx/deploy.audit.json",
       "rights": {
@@ -112,7 +122,12 @@
         "musicalOrListeningReview": false
       },
       "durationSeconds": 0.389252,
-      "normalizationNote": "Cue is too short for finite EBU R128 integrated loudness; normalized to -8 dBTP instead. The -20 LUFS target is unverified."
+      "normalizationNote": "Cue is too short for finite EBU R128 integrated loudness; normalized to -8 dBTP instead. The -20 LUFS target is unverified.",
+      "staticExport": {
+        "sourceCommit": "a375fb26b66847e8eed136fc3f1f6016d229bfe8",
+        "reason": "LOB7 rejects M4A; preserved original Vorbis plus MP3 fallback from the hash-verified original recording.",
+        "mp3Encoder": "libmp3lame 192 kbit/s, Xing gapless metadata"
+      }
     },
     {
       "key": "victory",
@@ -132,7 +147,7 @@
       },
       "derivedFiles": [
         "sfx/victory.ogg",
-        "sfx/victory.m4a"
+        "sfx/victory.mp3"
       ],
       "conversionAudit": "sfx/victory.audit.json",
       "rights": {
@@ -150,7 +165,12 @@
         "musicalOrListeningReview": false
       },
       "durationSeconds": 0.852698,
-      "normalizationNote": "Two-pass EBU R128 normalization to -20 LUFS; final Vorbis -19.98 LUFS/-3.68 dBTP and AAC -20.03 LUFS/-3.80 dBTP."
+      "normalizationNote": "Two-pass EBU R128 preparation; final Vorbis -19.98 LUFS/-3.68 dBTP and MP3 -20.28 LUFS/-4.03 dBTP.",
+      "staticExport": {
+        "sourceCommit": "a375fb26b66847e8eed136fc3f1f6016d229bfe8",
+        "reason": "LOB7 rejects M4A; preserved original Vorbis plus MP3 fallback from the hash-verified original recording.",
+        "mp3Encoder": "libmp3lame 192 kbit/s, Xing gapless metadata"
+      }
     },
     {
       "key": "title",
@@ -171,7 +191,7 @@
       "officialDownloadObserved": true,
       "derivedFiles": [
         "music/title.ogg",
-        "music/title.m4a"
+        "music/title.mp3"
       ],
       "conversionAudit": "music/title.audit.json",
       "rights": {
@@ -190,7 +210,12 @@
         "loopPreparation": "A 0.35-second tail/head crossfade was applied. Musical seam quality still requires listening."
       },
       "durationSeconds": 75.0,
-      "normalizationNote": "Two-pass EBU R128 normalization to -22 LUFS; final Vorbis -22.00 LUFS/-8.60 dBTP and AAC -22.02 LUFS/-8.58 dBTP."
+      "normalizationNote": "Two-pass EBU R128 preparation; final Vorbis -22.00 LUFS/-8.60 dBTP and MP3 -22.27 LUFS/-8.99 dBTP.",
+      "staticExport": {
+        "sourceCommit": "a375fb26b66847e8eed136fc3f1f6016d229bfe8",
+        "reason": "LOB7 rejects M4A; preserved original Vorbis plus MP3 fallback from the hash-verified original recording.",
+        "mp3Encoder": "libmp3lame 192 kbit/s, Xing gapless metadata"
+      }
     },
     {
       "key": "gameplay",
@@ -211,7 +236,7 @@
       "officialDownloadObserved": true,
       "derivedFiles": [
         "music/gameplay.ogg",
-        "music/gameplay.m4a"
+        "music/gameplay.mp3"
       ],
       "conversionAudit": "music/gameplay.audit.json",
       "rights": {
@@ -230,7 +255,12 @@
         "loopPreparation": "A 0.35-second tail/head crossfade was applied. Musical seam quality still requires listening."
       },
       "durationSeconds": 120.0,
-      "normalizationNote": "Two-pass EBU R128 normalization to -22 LUFS; final Vorbis -21.99 LUFS/-7.82 dBTP and AAC -22.01 LUFS/-8.08 dBTP."
+      "normalizationNote": "Two-pass EBU R128 preparation; final Vorbis -21.99 LUFS/-7.82 dBTP and MP3 -22.26 LUFS/-8.43 dBTP.",
+      "staticExport": {
+        "sourceCommit": "a375fb26b66847e8eed136fc3f1f6016d229bfe8",
+        "reason": "LOB7 rejects M4A; preserved original Vorbis plus MP3 fallback from the hash-verified original recording.",
+        "mp3Encoder": "libmp3lame 192 kbit/s, Xing gapless metadata"
+      }
     }
   ]
 }

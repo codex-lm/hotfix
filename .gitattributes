@@ -2,6 +2,7 @@
 *.woff2 binary
 *.ogg binary
 *.m4a binary
+*.mp3 binary
 *.png binary
 # Preserve downloaded third-party sources byte for byte.
 lob7-rooms.js -text whitespace=cr-at-eol

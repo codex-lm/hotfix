@@ -1,5 +1,11 @@
 # Hotfix
 
+## LOB7 static export
+
+This is the `lob7-static` serving branch of the same public repository. Editable development sources, complete tests, CI and audio-conversion tooling are preserved at [development commit a375fb26b66847e8eed136fc3f1f6016d229bfe8](https://github.com/codex-lm/hotfix/commit/a375fb26b66847e8eed136fc3f1f6016d229bfe8) on `main`. No gameplay engine or puzzle data changed for this export.
+
+The LOB7 static recipe rejects workflow YAML, Python tooling and M4A media. This branch omits `.github/`, `scripts/` and `tests/`, preserves all runtime `src/` modules and legal notices, and serves the original OGG files with MP3 192 kbit/s fallbacks converted from the hash-verified original recordings. The manifest, browser MIME selection and media audits match these exact files. Media remains subject to its separate terms, outside the code MIT license.
+
 **Six instructions. One patch per cycle. A robot already running in production.**
 
 Hotfix is a deterministic programming puzzle in a bright warehouse. Inspect the next six ticks, replace at most one instruction, and deploy. Your patch persists into the next cycle, while the robot keeps moving. Every ticket has a minimum patch count proved by exhaustive search.
@@ -22,7 +28,7 @@ python3 -m http.server 8080
 # Open http://localhost:8080
 ```
 
-Run the dependency-free tests with Node 24 or a recent Node version supporting automatic ES module detection:
+The full dependency-free test suite is retained on the development commit linked above. Check out that source revision and run with Node 24 or a recent Node version supporting automatic ES module detection:
 
 ```sh
 node tests/run.mjs
@@ -76,7 +82,7 @@ The bot performance criterion belongs to M2, consistent with the milestone scope
 - `src/prod/`, `src/ai/`, `src/net/`: arena setup, three deterministic bot levels, local transport and the prepared room protocol.
 - `src/ui/`, `src/i18n/`: canvas warehouse, patch editor, rules, commits, storage, postmortem and translation.
 - `assets/manifest.json`: received images/audio only. Missing visuals use procedural canvas artwork, and missing sound cues remain silent.
-- `tests/`: Node assertions with no dependency or package manifest.
+- `tests/` on the linked development branch: Node assertions with no dependency or package manifest.
 
 All gameplay randomness comes through `src/core/rng.js`. The clock only creates a fresh input seed, chooses the UTC daily seed, and measures presentation time; it never affects simulation outcomes.
 
@@ -90,4 +96,4 @@ Two Suno instrumental loops and four ElevenLabs cues are included as optional ga
 
 Keep the pure simulator authoritative, keep FR/EN complete, add a rule test for changed semantics, and preserve media provenance. Record derivative release ancestry in `LOB7-ATTRIBUTION.json`. A static `main` is ready to serve with `index.html` at its root; there is deliberately no `package.json`.
 
-Cédric publishes the tagged commit through LOB7. Room integration needs a real bridge identity audit before activation: the bundled SDK exposes service metadata without specifying the self/host/sender field names. Never accept an identity asserted inside a game message.
+LOB7 publication uses an exact commit of this export branch; the publisher identity and structured contributions are recorded by LOB7. Room integration needs a real bridge identity audit before activation: the bundled SDK exposes service metadata without specifying the self/host/sender field names. Never accept an identity asserted inside a game message.

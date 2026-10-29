@@ -31,85 +31,85 @@
   "music": {
     "title": [
       "audio/music/title.ogg",
-      "audio/music/title.m4a"
+      "audio/music/title.mp3"
     ],
     "gameplay": [
       "audio/music/gameplay.ogg",
-      "audio/music/gameplay.m4a"
+      "audio/music/gameplay.mp3"
     ],
     "resolved": [
       "audio/music/resolved.ogg",
-      "audio/music/resolved.m4a"
+      "audio/music/resolved.mp3"
     ],
     "escalated": [
       "audio/music/escalated.ogg",
-      "audio/music/escalated.m4a"
+      "audio/music/escalated.mp3"
     ]
   },
   "sfx": {
     "move": [
       "audio/sfx/move.ogg",
-      "audio/sfx/move.m4a"
+      "audio/sfx/move.mp3"
     ],
     "turn": [
       "audio/sfx/turn.ogg",
-      "audio/sfx/turn.m4a"
+      "audio/sfx/turn.mp3"
     ],
     "push": [
       "audio/sfx/push.ogg",
-      "audio/sfx/push.m4a"
+      "audio/sfx/push.mp3"
     ],
     "crate-push": [
       "audio/sfx/crate-push.ogg",
-      "audio/sfx/crate-push.m4a"
+      "audio/sfx/crate-push.mp3"
     ],
     "hole-filled": [
       "audio/sfx/hole-filled.ogg",
-      "audio/sfx/hole-filled.m4a"
+      "audio/sfx/hole-filled.mp3"
     ],
     "fall": [
       "audio/sfx/fall.ogg",
-      "audio/sfx/fall.m4a"
+      "audio/sfx/fall.mp3"
     ],
     "respawn": [
       "audio/sfx/respawn.ogg",
-      "audio/sfx/respawn.m4a"
+      "audio/sfx/respawn.mp3"
     ],
     "conveyor": [
       "audio/sfx/conveyor.ogg",
-      "audio/sfx/conveyor.m4a"
+      "audio/sfx/conveyor.mp3"
     ],
     "beacon": [
       "audio/sfx/beacon.ogg",
-      "audio/sfx/beacon.m4a"
+      "audio/sfx/beacon.mp3"
     ],
     "exit": [
       "audio/sfx/exit.ogg",
-      "audio/sfx/exit.m4a"
+      "audio/sfx/exit.mp3"
     ],
     "patch-select": [
       "audio/sfx/patch-select.ogg",
-      "audio/sfx/patch-select.m4a"
+      "audio/sfx/patch-select.mp3"
     ],
     "deploy": [
       "audio/sfx/deploy.ogg",
-      "audio/sfx/deploy.m4a"
+      "audio/sfx/deploy.mp3"
     ],
     "cycle-end": [
       "audio/sfx/cycle-end.ogg",
-      "audio/sfx/cycle-end.m4a"
+      "audio/sfx/cycle-end.mp3"
     ],
     "countdown": [
       "audio/sfx/countdown.ogg",
-      "audio/sfx/countdown.m4a"
+      "audio/sfx/countdown.mp3"
     ],
     "victory": [
       "audio/sfx/victory.ogg",
-      "audio/sfx/victory.m4a"
+      "audio/sfx/victory.mp3"
     ],
     "failure": [
       "audio/sfx/failure.ogg",
-      "audio/sfx/failure.m4a"
+      "audio/sfx/failure.mp3"
     ]
   }
 }

@@ -1,3 +1,5 @@
+> LOB7 static export: this branch serves OGG plus MP3 fallbacks because the hosted recipe rejects M4A. The original production brief and AAC derivatives remain on the linked development commit.
+
 # Hotfix — asset delivery brief
 
 This document describes requested production assets. Actual received files
@@ -63,12 +65,12 @@ without leading silence or clipping.
 
 | Base path under `assets/audio/music/` | Duration | Brief |
 | --- | --- | --- |
-| `title.ogg`, `title.m4a` | 60–90 s | Discreet groove, welcoming title theme, clean loop point. |
-| `gameplay.ogg`, `gameplay.m4a` | 120 s | Moderate tempo, neutral enough to repeat for ten minutes, seamless loop. |
-| `resolved.ogg`, `resolved.m4a` | 5 s, optional | Short warm incident-resolved sting; no loop. |
-| `escalated.ogg`, `escalated.m4a` | 5 s, optional | Gentle comic setback, no punitive noise; no loop. |
+| `title.ogg`, `title.mp3` | 60–90 s | Discreet groove, welcoming title theme, clean loop point. |
+| `gameplay.ogg`, `gameplay.mp3` | 120 s | Moderate tempo, neutral enough to repeat for ten minutes, seamless loop. |
+| `resolved.ogg`, `resolved.mp3` | 5 s, optional | Short warm incident-resolved sting; no loop. |
+| `escalated.ogg`, `escalated.mp3` | 5 s, optional | Gentle comic setback, no punitive noise; no loop. |
 
-Primary format: OGG Vorbis 128 kbit/s; AAC `.m4a` fallback. Keep a lossless
+Primary format: OGG Vorbis 128 kbit/s; MP3 `.mp3` fallback. Keep a lossless
 master outside the published branch. Record the actual Suno model, generation
 date, generating account/plan and the applicable distribution terms in
 `ASSETS-LICENSE.md` before adding recordings. This brief does not assert that
@@ -78,10 +80,10 @@ any Suno account or recording already has those rights.
 
 Short, tactile and soft sounds for small warehouse robots. No speech, no
 harsh alarm, no borrowed sound design. Deliver source WAV, mono or stereo,
-44.1 kHz, and game OGG plus AAC fallback. Cue durations: 0.2–1.5 s, except
+44.1 kHz, and game OGG plus MP3 fallback. Cue durations: 0.2–1.5 s, except
 where a shorter click is clearer. Normalize as a coherent set; do not clip.
 
-All game basenames live under `assets/audio/sfx/` with `.ogg` and `.m4a`:
+All game basenames live under `assets/audio/sfx/` with `.ogg` and `.mp3`:
 
 | Basename | Cue |
 | --- | --- |
@@ -115,7 +117,7 @@ Add only actually received files to `assets/manifest.json`. Image keys are
 the relative path without `assets/img/` and without `.png`, for example
 `"robots/robot-N": "img/robots/robot-N.png"`. Audio entries are arrays in
 preferred format order, for example
-`"move": ["audio/sfx/move.ogg", "audio/sfx/move.m4a"]` inside `audio.sfx`.
+`"move": ["audio/sfx/move.ogg", "audio/sfx/move.mp3"]` inside `audio.sfx`.
 Music uses the same convention inside `audio.music`. All paths are relative
 to `assets/` and remain on the same origin. No code edit is needed for image
 keys already supported by the procedural renderer or for named audio cues.
