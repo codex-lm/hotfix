@@ -14,6 +14,8 @@ Preview checks: 12 local suites pass. An eight-robot Senior match reached its ra
 
 ## Play locally
 
+The LOB7-ready static export is maintained on [`lob7-static`](https://github.com/codex-lm/hotfix/tree/lob7-static), with an exact source-commit link and separate media notices. The source, tests and audio preparation tools remain on `main`. Publication progress and the existing draft are recorded in [PROGRESS.md](PROGRESS.md).
+
 No npm, dependency installation or build is needed. Use a static HTTP server; browsers cannot load these ES modules directly from a `file:` URL.
 
 ```sh
